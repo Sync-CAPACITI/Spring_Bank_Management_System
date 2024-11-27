@@ -23,24 +23,53 @@
         <span class="bg-animate2"></span>
         <div class="form-box register">
             <h2 class="animation" style="--i:17; --j:0;">Sign Up</h2>
-            <form action="" method="">
-            <div class="input-box animation" style="--i:18; --j:1;">
-                <input type="text" name="username" required />
-                <label>Username</label>
-                <i class="bx bxs-user"></i>
-            </div>
-            <div class="input-box animation" style="--i:19; --j:2;">
-                <input type="text" name="email" required />
+          
+            <form:form action="/register"  method="POST" modelAttribute="registerUser">
+              
+                <div class="input-box animation" style="--i:18; --j:1;">
+                    <form:input type="text" path="first_name" placeholder="First Name" required />
+                    <label> First name </label>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+
+                <div class="input-box animation" style="--i:19; --j:2;">
+                    <form:input type="text" path="last_name" placeholder="Last Name" required />
+                    <label>Last name</label>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+
+
+
+            <div class="input-box animation" style="--i:20; --j:3;">
+                <form:input type="email" path="email" placeholder="Email" required />
                 <label>Email</label>
                 <i class='bx bxs-envelope'></i>
             </div>
-            <div class="input-box animation" style="--i:20; --j:3;">
-                <input type="password" name="password" required />
+
+
+            <div class="input-box animation" style="--i:21; --j:4;">
+                <form:input type="number" path="id_num"   placeholder="ID Number" required />
+                <label>ID Number</label>
+                <!-- Don't forget the get a correct icon  -->
+                <i class='bx bxs-envelope'></i>
+
+            </div>
+
+            <div class="input-box animation" style="--i:22; --j:5;">
+                <form:input type="password" path="password" placeholder="Password" required />
                 <label>Password</label>
                 <i class="bx bxs-lock-alt"></i>
             </div>
-            <button type="submit" class="btn animation" style="--i:21; --j:4;">Sign Up</button>
-            <div class="logreg-link animation" style="--i:22; --j:5;">
+
+            <div class="input-box animation" style="--i:23; --j:6;">
+                <form:input type="password" name="confirm_password" placeholder="Confirm Password" required/>
+                <label>Confirm Password</label>
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+            
+
+            <button type="submit" class="btn animation" style="--i:24; --j:7;">Sign Up</button>
+            <div class="logreg-link animation" style="--i:25; --j:8;">
                 <p>
                 Already have an account?
                 <a href="#" class="login-link">Login</a>
