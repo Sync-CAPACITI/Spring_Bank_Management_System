@@ -8,9 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
      @GetMapping("/")
     public ModelAndView getIndex(){
-        ModelAndView getIndexPage = new ModelAndView("index");
+        ModelAndView getIndexPage = new ModelAndView("landing");
         getIndexPage.addObject("PageTitle", "Home");
-        System.out.println("In Thre Landing Page Controller");
+        System.out.println("In The Landing Page Controller");
         return getIndexPage;
     }
 
