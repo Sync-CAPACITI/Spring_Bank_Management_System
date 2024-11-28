@@ -23,19 +23,38 @@
         <span class="bg-animate2"></span>
         <div class="form-box register">
             <h2 class="animation" style="--i:17; --j:0;">Sign Up</h2>
+
+            
+            <!-- Display Message -->
+            <c:if test="${requestScope.passwordMisMatch != null}">
+                <div class="alert alert-danger text-center border border-danger">
+                    <b>${requestScope.passwordMisMatch}</b>
+                </div>
+            </c:if>
+            <!-- End Of Display Message -->
+
+            <!-- Display Message -->
+            <c:if test="${requestScope.success != null}">
+                <div class="alert alert-success text-center border border-success">
+                    <b>${requestScope.success}</b>
+                </div>
+            </c:if>
+            <!-- End Of Display Message -->
           
             <form:form action="/register"  method="POST" modelAttribute="registerUser">
               
                 <div class="input-box animation" style="--i:18; --j:1;">
                     <form:input type="text" path="first_name" placeholder="First Name" required />
                     <label> First name </label>
-                    <i class='bx bxs-envelope'></i>
+                    <i class="fa-duotone fa-light fa-input-text"></i>
+                    <form:errors path="first_name" class="text-white bg-danger" />                        
                 </div>
 
                 <div class="input-box animation" style="--i:19; --j:2;">
                     <form:input type="text" path="last_name" placeholder="Last Name" required />
                     <label>Last name</label>
-                    <i class='bx bxs-envelope'></i>
+                    <i class="fa-duotone fa-light fa-input-text"></i>
+                    <form:errors path="last_name" class="text-white bg-danger" />
                 </div>
 
 
@@ -44,14 +63,16 @@
                 <form:input type="email" path="email" placeholder="Email" required />
                 <label>Email</label>
                 <i class='bx bxs-envelope'></i>
+                <form:errors path="email" class="text-white bg-danger" />
             </div>
 
 
             <div class="input-box animation" style="--i:21; --j:4;">
                 <form:input type="number" path="id_num"   placeholder="ID Number" required />
                 <label>ID Number</label>
-                <!-- Don't forget the get a correct icon  -->
-                <i class='bx bxs-envelope'></i>
+                <i class="fa-solid fa-book"></i>
+                <form:errors path="id_num" class="text-white bg-danger" />                    
+
 
             </div>
 
@@ -59,12 +80,16 @@
                 <form:input type="password" path="password" placeholder="Password" required />
                 <label>Password</label>
                 <i class="bx bxs-lock-alt"></i>
+                <form:errors path="password" class="text-white bg-danger" />
+
             </div>
 
             <div class="input-box animation" style="--i:23; --j:6;">
                 <form:input type="password" name="confirm_password" placeholder="Confirm Password" required/>
                 <label>Confirm Password</label>
                 <i class="bx bxs-lock-alt"></i>
+                <small class="text-white bg-danger">${confirm_pass}</small>                        
+
             </div>
             
 
