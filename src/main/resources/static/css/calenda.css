@@ -1,0 +1,163 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+:root {
+  --primary-color: #003554;
+  --text-color: #1d1d1d;
+  --bg-color: #f1f1fb;
+  --hover-bg-color: #00c2fd;
+  --border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.calendar {
+  width: 100%;
+  max-width: 480px;
+  padding: 24px 16px; 
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: inset -0.42px 1.96px 2.37px -0.30px rgba(0, 0, 0, 0.15),
+  inset 0.62px -2.93px 2.37px -0.30px rgba(0, 0, 0, 0.3),
+  -1.25px 5.87px 1.78px -0.89px rgba(0, 0, 0, 0.6);
+}
+
+.calendar .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px; 
+  padding-bottom: 16px; 
+  border-bottom: 2px solid #ccc;
+}
+
+.calendar .header .month {
+  font-size: 1.2rem; 
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.calendar .header .btns {
+  display: flex;
+  gap: 8px; /* Reduced from 10px */
+}
+
+.calendar .header .btns .btn {
+  width: 40px; /* Reduced from 50px */
+  height: 32px; /* Reduced from 40px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  color: #fff;
+  background-color: var(--primary-color);
+  font-size: 0.8rem; /* Reduced from 1rem */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.calendar .header .btns .btn:hover {
+  background-color: var(--hover-bg-color);
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.weekdays {
+  display: flex;
+  gap: 8px; /* Reduced from 10px */
+  margin-bottom: 8px; /* Reduced from 10px */
+}
+
+.weekdays .day {
+  width: calc(100% / 7 - 8px); /* Reduced gap */
+  text-align: center;
+  font-size: 0.8rem; /* Reduced from 1rem */
+  font-weight: 600;
+}
+
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Reduced from 10px */
+}
+
+.days .day {
+  width: calc(100% / 7 - 8px); /* Reduced gap */
+  height: 40px; /* Reduced from 50px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 0.8rem; /* Reduced from 1rem */
+  font-weight: 400;
+  color: var(--text-color);
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.days .day:hover:not(.next):not(.prev) {
+  background-color: var(--primary-color);
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.days .day.today {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.days .day.next,
+.days .day.prev {
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .calendar {
+    padding: 20px 16px; /* Reduced padding */
+  }
+
+  .calendar .header .month {
+    font-size: 1.0rem; /* Reduced from 1.25rem */
+  }
+
+  .calendar .header .btns .btn {
+    width: 36px; /* Reduced from 45px */
+    height: 28px; /* Reduced from 35px */
+    font-size: 0.75rem; /* Reduced from 0.9rem */
+  }
+
+  .days .day {
+    font-size: 0.75rem; /* Reduced from 0.9rem */
+    height: 36px; /* Reduced from 45px */
+  }
+
+  .days .day:hover:not(.next):not(.prev) {
+    transform: scale(1.03);
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar {
+    padding: 12px; /* Reduced from 15px */
+  }
+
+  .calendar .header .month {
+    font-size: 0.9rem; /* Reduced from 1.1rem */
+  }
+
+  .calendar .header .btns .btn {
+    width: 32px; /* Reduced from 40px */
+    height: 24px; /* Reduced from 30px */
+    font-size: 0.7rem; /* Reduced from 0.85rem */
+  }
+
+  .days .day {
+    font-size: 0.7rem; /* Reduced from 0.85rem */
+    height: 32px; /* Reduced from 40px */
+  }
+}
