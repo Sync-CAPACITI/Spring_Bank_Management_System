@@ -24,6 +24,30 @@
         <div class="form-box login">
             <h2 class="animation" style="--i:0; --j:21;">Login</h2>
 
+            <!-- Display Message -->
+            <c:if test="${requestScope.success != null}">
+                <div class="alert alert-success text-center border border-success">
+                    <b>${requestScope.success}</b>
+                </div>
+            </c:if>
+            <!-- End Of Display Message -->
+
+            <!-- Display Message -->
+            <c:if test="${requestScope.error != null}">
+                <div class="alert alert-danger text-center border border-danger">
+                    <b>${requestScope.error}</b>
+                </div>
+            </c:if>
+            <!-- End Of Display Message -->
+
+            <!-- Display Message -->
+            <c:if test="${logged_out != null}">
+                <div class="alert alert-info text-center border border-info">
+                    <b>${logged_out}</b>
+                </div>
+            </c:if>
+            <!-- End Of Display Message -->
+
             <form action="/login" method="POST">
             <div class="input-box animation" style="--i:1; --j:22;">
                 <input type="email" name="email" required />
