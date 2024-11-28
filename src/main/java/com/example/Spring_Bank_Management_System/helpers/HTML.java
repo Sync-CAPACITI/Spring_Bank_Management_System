@@ -91,7 +91,7 @@ public class HTML {
                 "        <!-- End Of Email MSG Header -->\n" +
                 "\n" +
                 "        <!-- Company Name -->\n" +
-                "        <div class='company-name'>Next-Gen Banking</div>\n" +
+                "        <div class='company-name'>PEAK Next-Gen Banking</div>\n" +
                 "        <!-- End Of Company Name -->\n" +
                 "        <hr>\n" +
                 "\n" +
@@ -109,7 +109,7 @@ public class HTML {
                 "\n" +
                 "        <!-- Copy Right Wrapper -->\n" +
                 "        <div class='copy-right'>\n" +
-                "            &copy; Copy Right 2021. All Rights Reserved.\n" +
+                "            &copy; Copy Right 2024. All Rights Reserved.\n" +
                 "        </div>\n" +
                 "        <!-- End Of Copy Right Wrapper -->\n" +
                 "\n" +
