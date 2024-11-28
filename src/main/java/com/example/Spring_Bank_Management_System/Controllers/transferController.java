@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class transferController {
-     @GetMapping("/transfer")
+    @GetMapping("/transfer")
     public ModelAndView getTransfer(){
         ModelAndView getTrasnferPage = new ModelAndView("transfer");
         getTrasnferPage.addObject("PageTitle", "Transfer");
@@ -15,11 +15,4 @@ public class transferController {
         return getTrasnferPage;
     }
 
-    @GetMapping("/error")
-    public ModelAndView getError(){
-        ModelAndView getErrorPage = new ModelAndView("error");
-        getErrorPage.addObject("PageTitle", "Errors");
-        System.out.println("In Error Page Controller");
-        return getErrorPage;
-    }
 }
