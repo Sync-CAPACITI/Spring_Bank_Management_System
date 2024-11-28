@@ -13,13 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!-- Dasboards style -->
-     <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="css/home.css">
 
      <!--clock ui-->
-     <link rel="stylesheet" href="clock/clock.css">
+     <link rel="stylesheet" href="css/clock.css">
 
      <!-- calenda css -->
-     <link rel="stylesheet" href="calenda/calenda.css">
+     <link rel="stylesheet" href="css/calenda.css">
 
 </head>
 <body>
@@ -160,10 +160,10 @@
         <!-- right end -->
     </main>
     <!-- Clock JS -->
-    <script src="clock/clock.js"></script>
+    <script src="js/clock.js"></script>
 
     <!-- calendar js -->
-     <script src="calenda/calenda.js"></script>
+     <script src="jd/calenda.js"></script>
     
 </body>
 </html>
