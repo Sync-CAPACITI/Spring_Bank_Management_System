@@ -1,0 +1,14 @@
+
+### Fetch All Accounts
+GET http://localhost:8000/api/accounts
+
+
+
+### Acount creation 
+
+POST http://localhost:8000/api/accounts/create
+Content-Type: application/x-www-form-urlencoded
+
+user_id=1&account_name=Sinawo%20Savings&account_type=Savings
+
+
