@@ -10,7 +10,7 @@
 <body>
   <header>
     <nav class="navbar">
-      <div class="logo"><a href="#">LOGO></a></div>
+      <div class="logo"><a href="/">PEAK></a></div>
       <!-- <ul class="menu">
         <li><a href="#">Home</a></li>
         <li><a href="#">Latest</a></li>
@@ -19,8 +19,12 @@
         <li><a href="#">Contact</a></li>
       </ul> -->
       <div class="buttons">
-        <input type="button" value="Login">
-        <input type="button" value="Register">
+        <a href="/login">
+          <input type="button" value="Login">
+        </a>
+        <a href="/register">
+          <input type="button" value="Register">
+        </a>
       </div>
     </nav>
     <div class="home-content">
