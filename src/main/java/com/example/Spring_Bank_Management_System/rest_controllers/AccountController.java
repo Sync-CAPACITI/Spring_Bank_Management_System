@@ -6,11 +6,12 @@ import com.example.Spring_Bank_Management_System.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/accounts")
-public class RestAccountCreationController {
+public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -27,7 +28,13 @@ public class RestAccountCreationController {
         }
         try {
             String bankAccountNumber = GenAccountNumber.generateAccountNumber();
-            accountRepository.createBankAccount(user_Id, bankAccountNumber, accountName, accountType);
+            Account account = new Account();
+            account.setUserId(user_Id);
+            account.setAccountNumber(bankAccountNumber);
+            account.setAccountName(accountName);
+            account.setAccountType(accountType);
+            account.setBalance(BigDecimal.ZERO); // Explicitly setting default balance
+            accountRepository.save(account);
             return "Account Created Successfully with Account Number: " + bankAccountNumber;
         } catch (Exception e) {
             return "Error occurred while creating account: " + e.getMessage();

@@ -3,12 +3,63 @@
 GET http://localhost:8000/api/accounts
 
 
-
 ### Acount creation 
 
 POST http://localhost:8000/api/accounts/create
 Content-Type: application/x-www-form-urlencoded
 
 user_id=1&account_name=Sinawo%20Savings&account_type=Savings
+
+### Deposit to an Account
+
+POST http://localhost:8000/api/transactions/deposit
+Content-Type: application/x-www-form-urlencoded
+
+account_number=AC927323&amount=5845.36&description=Save this for January
+
+
+POST http://localhost:8000/api/transactions/deposit
+Content-Type: application/x-www-form-urlencoded
+
+account_number=AC123456
+amount=5845.36
+description=Save this for January
+
+
+### Transfer to an Account
+POST http://localhost:8000/api/transactions/add
+Content-Type: application/json
+
+{
+  "accountNumber": "AC123456",
+  "transactionType": "TRANSFER",
+  "amount": 5845.36,
+  "description": "Transferring to checking account",
+  "toAccountNumber": "AC548755"
+}
+
+
+### Transfer to an Account
+POST http://localhost:8000/api/transactions/add
+Content-Type: application/x-www-form-urlencoded
+
+account_number=AC123456
+transaction_type=TRANSFER
+amount=5845.36
+description=transferring to checking account
+to_account_number=AC548755
+
+
+
+### Withdraw from an Account
+POST http://localhost:8000/api/transactions/add
+Content-Type: application/json
+
+{
+  "accountNumber": "AC123456",
+  "transactionType": "WITHDRAWAL",
+  "amount": 45.36,
+  "description": "Withdraw from my savings account"
+}
 
 
