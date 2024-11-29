@@ -5,26 +5,24 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="stylesheet" href="css/login.css" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-  </head>
-
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Register</title>
+        <link rel="stylesheet" href="css/login.css" />
+        <link
+          href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+          rel="stylesheet"
+        />
+      </head>
+ 
   <body>
     <div class="wrapper">
         <span class="bg-animate"></span>
         <span class="bg-animate2"></span>
-        <div class="form-box register">
-            <h2 class="animation" style="--i:17; --j:0;">Sign Up</h2>
-
-            
+        <div class="form-box login reg-box">
+            <h2 class="animation" style="--i:0; --j:21;">Register</h2>
             <!-- Display Message -->
             <c:if test="${requestScope.passwordMisMatch != null}">
                 <div class="alert alert-danger text-center border border-danger">
@@ -40,18 +38,17 @@
                 </div>
             </c:if>
             <!-- End Of Display Message -->
-          
+
             <form:form action="/register"  method="POST" modelAttribute="registerUser">
-              
-                <div class="input-box animation" style="--i:18; --j:1;">
-                    <form:input type="text" path="first_name" placeholder="First Name" required />
+            <div class="input-box animation" >
+                    <form:input type="text" path="first_name" required="true" />
                     <label> First name </label>
                     <i class="fa-duotone fa-light fa-input-text"></i>
                     <form:errors path="first_name" class="text-white bg-danger" />                        
                 </div>
 
-                <div class="input-box animation" style="--i:19; --j:2;">
-                    <form:input type="text" path="last_name" placeholder="Last Name" required />
+                <div class="input-box animation" >
+                    <form:input type="text" path="last_name"  required="true" />
                     <label>Last name</label>
                     <i class="fa-duotone fa-light fa-input-text"></i>
                     <form:errors path="last_name" class="text-white bg-danger" />
@@ -59,16 +56,16 @@
 
 
 
-            <div class="input-box animation" style="--i:20; --j:3;">
-                <form:input type="email" path="email" placeholder="Email" required />
+            <div class="input-box animation" >
+                <form:input type="email" path="email"  required="true" />
                 <label>Email</label>
                 <i class='bx bxs-envelope'></i>
                 <form:errors path="email" class="text-white bg-danger" />
             </div>
 
 
-            <div class="input-box animation" style="--i:21; --j:4;">
-                <form:input type="number" path="id_num"   placeholder="ID Number" required />
+            <div class="input-box animation" >
+                <form:input type="number" path="id_num"  required="true" />
                 <label>ID Number</label>
                 <i class="fa-solid fa-book"></i>
                 <form:errors path="id_num" class="text-white bg-danger" />                    
@@ -76,16 +73,16 @@
 
             </div>
 
-            <div class="input-box animation" style="--i:22; --j:5;">
-                <form:input type="password" path="password" placeholder="Password" required />
+            <div class="input-box animation" >
+                <form:input type="password" path="password"  required="true" />
                 <label>Password</label>
                 <i class="bx bxs-lock-alt"></i>
                 <form:errors path="password" class="text-white bg-danger" />
 
             </div>
 
-            <div class="input-box animation" style="--i:23; --j:6;">
-                <form:input type="password" name="confirm_password" placeholder="Confirm Password" required/>
+            <div class="input-box animation">
+                <input type="password" name="confirm_password" />
                 <label>Confirm Password</label>
                 <i class="bx bxs-lock-alt"></i>
                 <small class="text-white bg-danger">${confirm_pass}</small>                        
@@ -94,20 +91,24 @@
             
 
             <button type="submit" class="btn animation" style="--i:24; --j:7;">Sign Up</button>
-            <div class="logreg-link animation" style="--i:25; --j:8;">
+            <div class="logreg-link animation" >
                 <p>
                 Already have an account?
-                <a href="#" class="login-link">Login</a>
+                <a href="/login" class="login-link">Login</a>
                 </p>
             </div>
-            </form>
+        </form:form>
         </div>
-        <div class="info-text register">
-            <h2 class="animation" style="--i:17; --j:0;">Bank Better with PEAK</h2>
-            <p class="animation" style="--i:18; --j:1;" >
-                Join and move to the future with <br> PEAK for the people, made by <br>the people.
-            </p>
+ 
+        <div class="info-text login">
+          <h2>Bank Better with PEAK</h2>
+          <p>
+            Join and move to the future with <br />
+            PEAK for the people, made by <br />the people.
+          </p>
         </div>
+       
+ 
     </div>
     <script src="js/login.js"></script>
   </body>

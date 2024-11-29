@@ -1,0 +1,1 @@
+<c:include url="components/account_types/credit.jsp"/>
