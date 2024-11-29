@@ -23,7 +23,13 @@ public class Transaction {
     private LocalDateTime transaction_date = LocalDateTime.now();
     private String description;
 
+    @Column(name = "destination_account_number", nullable = true) // For transfer transactions
+    private String destination_account_number;
 
+    // Getters and setters remain the same
+    public void setDestinationAccountNumber(String destinationAccountNumber) {
+        this.destination_account_number = destinationAccountNumber;
+    }
 
     public void setAccountNumber(String accountNumber) {
         this.account_number = accountNumber;

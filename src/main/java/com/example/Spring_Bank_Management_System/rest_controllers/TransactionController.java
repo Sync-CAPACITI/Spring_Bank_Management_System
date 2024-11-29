@@ -96,6 +96,7 @@ public class TransactionController {
 
     // Transfer Endpoint
     @PostMapping("/transfer")
+
     public String transfer(@RequestParam("from_account") String from_account,
                            @RequestParam("to_account") String to_account,
                            @RequestParam("amount") BigDecimal amount,
@@ -103,25 +104,25 @@ public class TransactionController {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             return "Amount must be greater than zero.";
         }
-
+    
         try {
             // Fetch accounts
             Account sourceAccount = accountRepository.findByAccountNumber(from_account);
             Account destinationAccount = accountRepository.findByAccountNumber(to_account);
-
+    
             if (sourceAccount == null || destinationAccount == null) {
                 return "One or both accounts not found.";
             }
             if (sourceAccount.getBalance().compareTo(amount) < 0) {
                 return "Insufficient balance in source account.";
             }
-
+    
             // Update account balances
             sourceAccount.setBalance(sourceAccount.getBalance().subtract(amount));
             destinationAccount.setBalance(destinationAccount.getBalance().add(amount));
             accountRepository.save(sourceAccount);
             accountRepository.save(destinationAccount);
-
+    
             // Create transaction records
             Transaction debitTransaction = new Transaction();
             debitTransaction.setAccount_id(sourceAccount.getAccountId());
@@ -130,8 +131,9 @@ public class TransactionController {
             debitTransaction.setAmount(amount);
             debitTransaction.setTransactionDate(LocalDateTime.now());
             debitTransaction.setDescription(description);
+            debitTransaction.setDestinationAccountNumber(to_account);
             transactionRepository.save(debitTransaction);
-
+    
             Transaction creditTransaction = new Transaction();
             creditTransaction.setAccount_id(destinationAccount.getAccountId());
             creditTransaction.setAccountNumber(to_account);
@@ -139,12 +141,17 @@ public class TransactionController {
             creditTransaction.setAmount(amount);
             creditTransaction.setTransactionDate(LocalDateTime.now());
             creditTransaction.setDescription(description);
+            creditTransaction.setDestinationAccountNumber(from_account);
             transactionRepository.save(creditTransaction);
-
+    
             return "Transfer successful. Source Balance: " + sourceAccount.getBalance() +
                    ", Destination Balance: " + destinationAccount.getBalance();
         } catch (Exception e) {
             return "Error occurred during transfer: " + e.getMessage();
         }
     }
+    
+
+
+
 }
