@@ -1,12 +1,16 @@
 package com.example.Spring_Bank_Management_System.Controllers;
 
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.stereotype.Controller;
 
+
 @Controller
 public class DashboardController {
+
+  
     @GetMapping("/open_account")
     public ModelAndView getAccount(){
         ModelAndView getIndexPage = new ModelAndView("open_account");
@@ -31,8 +35,10 @@ public class DashboardController {
     @GetMapping("/transfer")
     public ModelAndView getTransfer(){
         ModelAndView getIndexPage = new ModelAndView("transfer");
+        
         getIndexPage.addObject("PageTitle", "Transfer Cash");
         System.out.println("In The Landing Page Controller");
         return getIndexPage;
     }
+
 }

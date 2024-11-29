@@ -28,7 +28,7 @@
         <h4>Settings</h4>
     </a>
 
-    <a href="/help_center">
+    <a href="/logout">
         <span class="material-symbols-outlined">
         </span>        
         <h4>Log Out</h4>
