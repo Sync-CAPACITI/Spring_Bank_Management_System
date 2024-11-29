@@ -1,0 +1,147 @@
+[33mcommit 7bc0deddf3ed4887eaa105433eefa1b2183894ba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mtransfer[m[33m, [m[1;31morigin/transfer[m[33m)[m
+Author: TshepoMagagula <tshepomagagulatp11@gmail.com>
+Date:   Thu Nov 28 15:26:55 2024 +0200
+
+    Added TransferController for handling Transfer transactions
+
+[33mcommit 09627d1840a704f30bc8748393df30e91c4578fa[m
+Merge: 2fd6725 9368902
+Author: TshepoMagagula <tshepomagagulatp11@gmail.com>
+Date:   Thu Nov 28 13:14:35 2024 +0200
+
+    Merge branch 'back-end-mappings' of https://github.com/Sync-CAPACITI/Spring_Bank_Management_System into transfer
+
+[33mcommit 2fd67250021347eaf4d33d0517c3087a3a5440b7[m
+Author: TshepoMagagula <tshepomagagulatp11@gmail.com>
+Date:   Thu Nov 28 13:12:18 2024 +0200
+
+    added transfer function controller
+
+[33mcommit 93689022ed81982bcbbc524b26011ba81782112d[m[33m ([m[1;31morigin/back-end-mappings[m[33m)[m
+Author: NuffSaid-Bore <borekamohelo@gmail.com>
+Date:   Thu Nov 28 11:41:42 2024 +0200
+
+    added register service with email verification and login with sessions
+
+[33mcommit e83cb008a0634a56e105823ce9a8376e4ad30ee4[m
+Merge: 92f1949 85d8481
+Author: NuffSaid-Bore <borekamohelo@gmail.com>
+Date:   Thu Nov 28 11:34:03 2024 +0200
+
+    Merged all the 'entities'  into back-end-mappings
+
+[33mcommit 85d848115764716e61a34382213a57b745112a96[m
+Author: Sinawo <sinawomngxuma@gmail.com>
+Date:   Thu Nov 28 11:18:04 2024 +0200
+
+    Created all neccessary entities
+
+[33mcommit 92f1949acfcd0cdf3e263ae1862a6efd86d48778[m
+Merge: ecb52ec def3fd8
+Author: NuffSaid-Bore <borekamohelo@gmail.com>
+Date:   Thu Nov 28 10:46:55 2024 +0200
+
+    Merge branch 'entities' of https://github.com/Sync-CAPACITI/Spring_Bank_Management_System into back-end-mappings
+
+[33mcommit 6eeaa894dabff8881faa879c50bac952bf6b5045[m
+Merge: 2291978 ecb52ec
+Author: TshepoMagagula <tshepomagagulatp11@gmail.com>
+Date:   Thu Nov 28 09:46:30 2024 +0200
+
+    removed the db file
+
+[33mcommit 2291978ceabb8cb38deb9fd0383afc7b5fead092[m
+Author: TshepoMagagula <tshepomagagulatp11@gmail.com>
+Date:   Thu Nov 28 09:38:25 2024 +0200
+
+    added transfer front-end for testing
+
+[33mcommit ecb52ecdbdaac6bcd9b5edb81a57b3b4b3f416f2[m[33m ([m[1;31morigin/dev[m[33m)[m
+Author: Sync-CAPACITI <zithasbu621@gmail.com>
+Date:   Thu Nov 28 09:06:27 2024 +0200
+
+    page mapping login and register, error messages
+
+[33mcommit def3fd8d19fff9321e58c36412be90842ea912b9[m[33m ([m[1;31morigin/entities[m[33m)[m
+Author: Sinawo <sinawomngxuma@gmail.com>
+Date:   Thu Nov 28 08:46:09 2024 +0200
+
+    updated attr to match fields from sign/log-in
+
+[33mcommit 408b73ee8e7beb21b41ac6271e5078a48a380689[m[33m ([m[1;31morigin/login[m[33m)[m
+Author: Sync-CAPACITI <zithasbu621@gmail.com>
+Date:   Thu Nov 28 08:13:05 2024 +0200
+
+    Logo change, login and register button a link
+
+[33mcommit 8d90c953d233ab1a1433ab57e75ff587651b0fc2[m
+Author: Sinawo <sinawomngxuma@gmail.com>
+Date:   Wed Nov 27 23:29:04 2024 +0200
+
+    including user entity
+
+[33mcommit e4800323441b494b1e70ba0006deb07972d41873[m
+Author: Sync-CAPACITI <zithasbu621@gmail.com>
+Date:   Wed Nov 27 15:59:00 2024 +0200
+
+    added the signup page
+
+[33mcommit 190df328623e5dc51b542965d8f4fd09ba63f982[m
+Author: Sync-CAPACITI <zithasbu621@gmail.com>
+Date:   Wed Nov 27 14:50:12 2024 +0200
+
+    register markup
+
+[33mcommit 8f4eb5b310958ded41e333a0d6967b69fe9af74b[m
+Author: Sync-CAPACITI <zithasbu621@gmail.com>
+Date:   Wed Nov 27 14:45:42 2024 +0200
+
+    login control js
+
+[33mcommit 1f25c95887f07285b45d063f0cb5b948320ed78e[m
+Author: Sync-CAPACITI <zithasbu621@gmail.com>
+Date:   Wed Nov 27 14:45:14 2024 +0200
+
+    login style
+
+[33mcommit d8ec9d2c348d24a444140d1c9e8aacfdbc4a1ae8[m
+Author: Sync-CAPACITI <zithasbu621@gmail.com>
+Date:   Wed Nov 27 14:38:11 2024 +0200
+
+    login view and feel
+
+[33mcommit 790c9f5553fb6760a4c9a1688977bd17eb063ceb[m
+Author: Sync-CAPACITI <zithasbu621@gmail.com>
+Date:   Wed Nov 27 14:17:15 2024 +0200
+
+    landing page markup and style
+
+[33mcommit c593bcd4c407725e701bc85d7901d8d8ab1a6af3[m[33m ([m[1;31morigin/deposit-and-withdrawal[m[33m, [m[1;32mdev[m[33m)[m
+Author: NuffSaid-Bore <borekamohelo@gmail.com>
+Date:   Wed Nov 27 12:02:41 2024 +0200
+
+    added Index controller
+
+[33mcommit 538e8baeb1b5c1fdd4faf5ecce20ee62f9cf6171[m
+Author: NuffSaid-Bore <borekamohelo@gmail.com>
+Date:   Wed Nov 27 10:57:45 2024 +0200
+
+    error page
+
+[33mcommit 0157f0ab19916e604c6c9de9db64c139578cf748[m
+Author: NuffSaid-Bore <borekamohelo@gmail.com>
+Date:   Wed Nov 27 10:48:00 2024 +0200
+
+    added application Properties
+
+[33mcommit 9e6b4b4fd8eba411cd70140940a86be7df0aa3f0[m
+Author: NuffSaid-Bore <borekamohelo@gmail.com>
+Date:   Wed Nov 27 10:44:19 2024 +0200
+
+    added dependencies and file structure
+
+[33mcommit 8e66211f1991340bece4c445a7f4f314af40d6f8[m
+Author: NuffSaid-Bore <borekamohelo@gmail.com>
+Date:   Wed Nov 27 09:24:14 2024 +0200
+
+    Initial Commit
