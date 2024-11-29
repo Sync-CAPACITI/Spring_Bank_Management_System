@@ -1,5 +1,8 @@
 package com.example.Spring_Bank_Management_System.Controllers;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -44,7 +47,8 @@ public class AccountController {
 
 
         // CREATE ACCOUNT:
-        accountRepository.createBankAccount(user.getUser_id(), bankAccountNumber, accountName, accountType );
+        LocalDateTime now = LocalDateTime.now();
+        accountRepository.createBankAccount(user.getUser_id(), bankAccountNumber, accountName, accountType , BigDecimal.ZERO, now);
 
         // Set Success message:
         redirectAttributes.addFlashAttribute("success", "Account Created Successfully!");

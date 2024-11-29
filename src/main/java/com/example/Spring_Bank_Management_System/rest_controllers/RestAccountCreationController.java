@@ -7,17 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/accounts")
-public class AccountController {
+public class RestAccountCreationController {
 
     @Autowired
     private AccountRepository accountRepository;
 
     @PostMapping("/create")
-    public String createAccount(@RequestParam("user_id") int user_Id,
+    public String createAccount(@RequestParam("user_id") int user_id,
                                 @RequestParam("account_name") String accountName,
                                 @RequestParam("account_type") String accountType) {
         if (accountName == null || accountName.trim().isEmpty()) {
@@ -28,13 +29,8 @@ public class AccountController {
         }
         try {
             String bankAccountNumber = GenAccountNumber.generateAccountNumber();
-            Account account = new Account();
-            account.setUserId(user_Id);
-            account.setAccountNumber(bankAccountNumber);
-            account.setAccountName(accountName);
-            account.setAccountType(accountType);
-            account.setBalance(BigDecimal.ZERO); // Explicitly setting default balance
-            accountRepository.save(account);
+            LocalDateTime now = LocalDateTime.now();
+            accountRepository.createBankAccount(user_id, bankAccountNumber, accountName, accountType, BigDecimal.ZERO, now);
             return "Account Created Successfully with Account Number: " + bankAccountNumber;
         } catch (Exception e) {
             return "Error occurred while creating account: " + e.getMessage();
