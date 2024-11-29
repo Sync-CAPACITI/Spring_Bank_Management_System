@@ -21,6 +21,7 @@
      <link rel="stylesheet" href="../css/home.css">
      <link rel="stylesheet" href="../css/universal.css">
      <link rel="stylesheet" href="../css/open_account.css">
+
      <!--clock ui-->
      <link rel="stylesheet" href="../css/clock.css">
 
@@ -54,9 +55,8 @@
         <!-- aside end -->
          
         <section class="middle">
-            <c:import url="components/dashboard_components/transfer_component.jsp"/>
+            <c:import url="components/dashboard_components/withdraw_components.jsp"/>
 
-  
 
         </section>
         <!-- section end mid -->

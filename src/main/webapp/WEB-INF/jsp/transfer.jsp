@@ -21,6 +21,7 @@
      <link rel="stylesheet" href="../css/home.css">
      <link rel="stylesheet" href="../css/universal.css">
      <link rel="stylesheet" href="../css/open_account.css">
+
      <!--clock ui-->
      <link rel="stylesheet" href="../css/clock.css">
 

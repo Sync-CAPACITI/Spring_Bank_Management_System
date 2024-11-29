@@ -3,7 +3,7 @@
         <div class="profile-area">
             <div class="profile">
                 <div class="profile-photo">
-                    <img src="../images/user(2).jpg" alt="">
+                    <img src="../images/user.png" alt="">
                 </div>
                 <h5><span>${user.first_name}</span></h5>
             </div>

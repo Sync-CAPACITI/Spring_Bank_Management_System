@@ -1,9 +1,10 @@
 
 
-<div class="wrapper" id="app">
 
 <div class="wrapper" id="app">
     <div class="card-form">
+        <c:import url="components/dashboard_components/normal_card.jsp"/>
+
       <form action="/transact/transfer" method="POST">
       <div class="card-form__inner">
         <div class="card-input">
@@ -50,5 +51,4 @@
     </div>
     </div>
     </div>
-  </div>
   
