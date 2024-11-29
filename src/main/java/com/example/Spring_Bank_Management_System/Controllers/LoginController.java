@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.Spring_Bank_Management_System.helpers.Token;
 import com.example.Spring_Bank_Management_System.Entities.User;
+import com.example.Spring_Bank_Management_System.helpers.Token;
 import com.example.Spring_Bank_Management_System.repository.UserRepository;
+
 import jakarta.servlet.http.HttpSession;
 
 
@@ -85,7 +86,7 @@ public class LoginController {
         session.setAttribute("token", token);
         session.setAttribute("authenticated", true);
 
-        return "redirect:/app/dashboard";
+        return "redirect:/app/home";
 
     }
     // End Of Authentication Method.

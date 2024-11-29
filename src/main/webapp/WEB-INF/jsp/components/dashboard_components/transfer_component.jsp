@@ -1,36 +1,9 @@
 
 
 <div class="wrapper" id="app">
-    <div class="card-form">
-  
-      <c:choose>
-        <c:when test="${accountType == 'savings'}">
-          <c:import url="components/account_types/savings.jsp" />
-        </c:when>
-        <c:when test="${accountType == 'cheque'}">
-          <c:import url="components/account_types/cheque.jsp" />
-        </c:when>
-        <c:when test="${accountType == 'credit'}">
-          <c:import url="components/account_types/credit.jsp" />
-        </c:when>
-      </c:choose>
-  
-      
 
 <div class="wrapper" id="app">
     <div class="card-form">
-  
-      <c:choose>
-        <c:when test="${accountType == 'savings'}">
-          <c:import url="components/account_types/savings.jsp" />
-        </c:when>
-        <c:when test="${accountType == 'cheque'}">
-          <c:import url="components/account_types/cheque.jsp" />
-        </c:when>
-        <c:when test="${accountType == 'credit'}">
-          <c:import url="components/account_types/credit.jsp" />
-        </c:when>
-      </c:choose>
       <form action="/transact/transfer" method="POST">
       <div class="card-form__inner">
         <div class="card-input">
@@ -72,6 +45,7 @@
   
         <button class="card-form__button">Transfer</button>
       </div>
+
       </form>
     </div>
     </div>
