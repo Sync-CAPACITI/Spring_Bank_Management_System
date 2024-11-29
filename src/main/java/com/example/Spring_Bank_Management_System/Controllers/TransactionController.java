@@ -1,66 +1,87 @@
 package com.example.Spring_Bank_Management_System.Controllers;
 
-import org.springframework.web.bind.annotation.*;
+import com.example.Spring_Bank_Management_System.Entities.Transact;
+import com.example.Spring_Bank_Management_System.repository.TransactRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
 
-    private double currentBalance = 3000.75; // Example starting balance
+    @Autowired
+    private TransactRepository transactRepository;
+
+    private BigDecimal currentBalance = BigDecimal.valueOf(3000.75); // Example starting balance
 
     @PostMapping("/deposit")
     public ResponseEntity<String> deposit(@RequestBody DepositRequest depositRequest) {
-        if (depositRequest.getAmount() <= 0) {
+        if (depositRequest.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             return ResponseEntity.badRequest().body("Amount must be positive.");
         }
 
         synchronized (this) {
-            currentBalance += depositRequest.getAmount();
+            currentBalance = currentBalance.add(depositRequest.getAmount());
         }
-        return ResponseEntity.ok(String.valueOf(currentBalance));
+
+        // Create and save a new transaction record
+        Transact depositTransaction = new Transact();
+        depositTransaction.setAmount(depositRequest.getAmount());
+        depositTransaction.setTransaction_type("Deposit");
+        depositTransaction.setStatus("Success");
+        transactRepository.save(depositTransaction);
+
+        return ResponseEntity.ok("Deposit successful. New balance: " + currentBalance);
     }
 
     @PostMapping("/withdraw")
     public ResponseEntity<String> withdraw(@RequestBody WithdrawRequest withdrawRequest) {
-        double withdrawAmount = withdrawRequest.getAmount();
-
-        if (withdrawAmount <= 0) {
+        if (withdrawRequest.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             return ResponseEntity.badRequest().body("Error: Withdrawal amount must be greater than zero.");
         }
 
-        if (withdrawAmount > currentBalance) {
+        if (withdrawRequest.getAmount().compareTo(currentBalance) > 0) {
             return ResponseEntity.badRequest().body("Error: Insufficient balance.");
         }
 
         synchronized (this) {
-            currentBalance -= withdrawAmount; // Deduct amount from balance
+            currentBalance = currentBalance.subtract(withdrawRequest.getAmount());
         }
 
-        return ResponseEntity.ok(String.valueOf(currentBalance));
+        // Create and save a new transaction record
+        Transact withdrawTransaction = new Transact();
+        withdrawTransaction.setAmount(withdrawRequest.getAmount());
+        withdrawTransaction.setTransaction_type("Withdraw");
+        withdrawTransaction.setStatus("Success");
+        transactRepository.save(withdrawTransaction);
+
+        return ResponseEntity.ok("Withdrawal successful. New balance: " + currentBalance);
     }
 
-    // Helper classes for the request payloads
+    // Helper classes for request payloads
     public static class DepositRequest {
-        private double amount;
+        private BigDecimal amount;
 
-        public double getAmount() {
+        public BigDecimal getAmount() {
             return amount;
         }
 
-        public void setAmount(double amount) {
+        public void setAmount(BigDecimal amount) {
             this.amount = amount;
         }
     }
 
     public static class WithdrawRequest {
-        private double amount;
+        private BigDecimal amount;
 
-        public double getAmount() {
+        public BigDecimal getAmount() {
             return amount;
         }
 
-        public void setAmount(double amount) {
+        public void setAmount(BigDecimal amount) {
             this.amount = amount;
         }
     }
