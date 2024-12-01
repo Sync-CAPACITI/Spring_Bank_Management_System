@@ -13,6 +13,10 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transaction_id;
+
+    @ManyToOne
+    @JoinColumn(name = "accountId", referencedColumnName = "accountId")
+    private Account account;
     
     @Column(name = "account_id", nullable = false) 
     private int account_id;
@@ -22,6 +26,9 @@ public class Transaction {
     private BigDecimal amount;
     private LocalDateTime transaction_date = LocalDateTime.now();
     private String description;
+
+    
+
 
     @Column(name = "destination_account_number", nullable = true) // For transfer transactions
     private String destination_account_number;

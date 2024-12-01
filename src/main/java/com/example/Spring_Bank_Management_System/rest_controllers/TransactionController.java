@@ -109,8 +109,14 @@ public class TransactionController {
             // Fetch accounts
             Account sourceAccount = accountRepository.findByAccountNumber(from_account);
             Account destinationAccount = accountRepository.findByAccountNumber(to_account);
-    
+         
+            System.out.println(from_account);
+            System.out.println(to_account);
+            System.out.println(amount);
+            System.out.println(description);
+
             if (sourceAccount == null || destinationAccount == null) {
+
                 return "One or both accounts not found.";
             }
             if (sourceAccount.getBalance().compareTo(amount) < 0) {

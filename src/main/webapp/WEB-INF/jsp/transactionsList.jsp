@@ -56,21 +56,41 @@
         <section class="middle">
      
   
-            <c:choose>
-                <c:when test="${fn:length(userAccounts) > 0 }">
-                    <!-- Display Accounts --->
-                
-                    <c:import url="components/account.jsp"/>
-           
-                </c:when>
-                <c:otherwise>
-                    <!-- Dont Display Accounts -->
-                    <c:import url="components/no_account.jsp"/>
-                </c:otherwise>
-            </c:choose>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Account Name</th>
+                        <th>Account Number</th>
+                        <th>Transaction Type</th>
+                        <th>Amount</th>
+                        <th>Balance</th>
+                        <th>Transaction Date</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${userTransactions}" var="transaction">
+                        <tr>
+                            <td>${transaction.transactionId}</td>
+                            <td>${transaction.accountName}</td>
+                            <td>${transaction.accountNumber}</td>
+                            <td>${transaction.transactionType}</td>
+                            <td>${transaction.amount}</td>
+                            <td>${transaction.balance}</td>
+                            <td>${transaction.transactionDate}</td>
+                            <td>${transaction.description}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            
 
         </section>
         <!-- section end mid -->
+
+
+
 
         <section class="right">
             <c:import url="components/dashboard_components/clock.jsp"/>

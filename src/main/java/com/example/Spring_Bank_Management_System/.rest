@@ -38,16 +38,18 @@ description=Save this for January
 POST http://localhost:8000/api/transactions/transfer
 Content-Type: application/json
 
+
 {
-  "accountNumber": "AC309661",
-  "transactionType": "TRANSFER",
+  "from_account": "AC862202",
+  "to_account": "AC162147",
   "amount": 55.36,
-  "description": "Transferring to checking account",
-  "toAccountNumber": "AC898671"
+  "transactionType": "TRANSFER",
+  "description": "Transferring to checking account"
+
 }
 
 ### Transfer to an Account
-POST http://localhost:8080/api/transactions/transfer
+POST http://localhost:8000/api/transactions/transfer
 Content-Type: application/x-www-form-urlencoded
 
 from_account=AC862202

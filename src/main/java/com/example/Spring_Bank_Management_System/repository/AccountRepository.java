@@ -12,18 +12,50 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Spring_Bank_Management_System.Entities.Account;
+import com.example.Spring_Bank_Management_System.dto.UserTransactionDTO;
 
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Integer> {
 
+    @Query(value = """
+        SELECT 
+            new com.example.Spring_Bank_Management_System.dto.UserTransactionDTO(
+                t.transactionId,
+                t.account_Id,
+                t.accountNumber,
+                t.amount,
+                t.description,
+                t.transactionDate,
+                t.transactionType,
+                t.destinationAccountId,
+                t.destinationAccountNumber,
+                a.accountName,
+                a.accountType,
+                a.balance
+            )
+        FROM 
+            Transaction t
+        JOIN 
+            Account a ON t.accountId = a.accountId
+        WHERE 
+            a.userId = :userId
+        """)
+    List<UserTransactionDTO> getUserTransactions(@Param("userId") int userId);
+    
     @Query(value = "SELECT * FROM accounts WHERE user_id = :user_id", nativeQuery = true)
     List<Account> getUserAccountsById(@Param("user_id") int userId);
 
     @Query(value = "SELECT sum(balance) FROM accounts WHERE user_id = :user_id", nativeQuery = true)
     BigDecimal getTotalBalance(@Param("user_id") int userId);
 
+    
+
+    
     @Query(value = "SELECT * FROM accounts WHERE account_number = :account_number", nativeQuery = true)
     Account findByAccountNumber(@Param("account_number") String accountNumber);
+
+
+
 
     @Query(value = "SELECT balance FROM accounts WHERE user_id = :user_id AND account_id = :account_id", nativeQuery = true)
     double getAccountBalance(@Param("user_id") int userId, @Param("account_id") int accountId);
@@ -51,9 +83,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     @Query("SELECT a FROM Account a WHERE a.userId = :user_id")
     List<Account> findByUserId(@Param("user_id") int userId);
 
-    @Query("SELECT a FROM Account a WHERE a.accountNumber = :account_number OR a.accountName = :account_name")
-    Account findByAccountNumberOrAccountName(@Param("account_number") String accountNumber, @Param("account_name") String accountName);
-    
+
     @Modifying
     @Query(value = "UPDATE accounts SET balance = balance + :amount WHERE account_id = :account_id", nativeQuery = true)
     @Transactional
