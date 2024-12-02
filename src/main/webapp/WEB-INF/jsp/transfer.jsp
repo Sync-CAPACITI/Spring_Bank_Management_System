@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Transfer Cash</title>
 
     <!-- material icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
@@ -55,6 +55,7 @@
         <!-- aside end -->
          
         <section class="middle">
+            <h1> Transfer Cash</h1>
             <c:import url="components/dashboard_components/transfer_component.jsp"/>
 
   

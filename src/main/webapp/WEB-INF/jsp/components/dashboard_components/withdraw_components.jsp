@@ -1,11 +1,13 @@
 
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
     <div class="wrapper" id="app">
         <div class="card-form">
             <c:import url="components/dashboard_components/normal_card.jsp"/>
 
-          <form action="/transact/transfer" method="POST">
+          <form action="/api/transactions/withdraw" method="POST">
           <div class="card-form__inner">
 
             <div class="card-input">
@@ -15,7 +17,7 @@
                     <option value="">-- Select Account --</option>
                     <c:if test="${userAccounts != null}">
                         <c:forEach items="${userAccounts}" var="selectAccount">
-                            <option value="${selectAccount.account_id}">${selectAccount.account_name}</option>
+                            <option value="${selectAccount.accountId}">${selectAccount.accountName}</option>
                         </c:forEach>
                     </c:if>
                 </select>
@@ -26,8 +28,20 @@
               <input
                 type="number"
                 maxlength="10"
+                name="withdrawal_amount"
                 class="card-input__input"
-                placeholder="Enter amount"
+                placeholder="Enter amount to withdraw"
+                autocomplete="off"
+              />
+            </div>
+            <div class="card-input">
+              <label for="cardName" class="card-input__label">Description</label>
+              <input
+                type="text"
+                maxlength="50" 
+                name="description"
+                class="card-input__input"
+                placeholder="Enter a withdraw Description"
                 autocomplete="off"
               />
             </div>

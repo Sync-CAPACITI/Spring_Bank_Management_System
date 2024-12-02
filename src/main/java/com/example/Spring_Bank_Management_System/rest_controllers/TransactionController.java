@@ -1,13 +1,13 @@
 package com.example.Spring_Bank_Management_System.rest_controllers;
 
-import com.example.Spring_Bank_Management_System.Entities.Account;
-import com.example.Spring_Bank_Management_System.Entities.Transaction;
-import com.example.Spring_Bank_Management_System.repository.TransactionRepository;
+import com.example.Spring_Bank_Management_System.Entities.User;
+import jakarta.servlet.http.HttpSession;
+
 import com.example.Spring_Bank_Management_System.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @RestController
@@ -15,136 +15,174 @@ import java.time.LocalDateTime;
 public class TransactionController {
 
     @Autowired
-    private TransactionRepository transactionRepository;
-
-    @Autowired
     private AccountRepository accountRepository;
 
     // Deposit Endpoint
+    User user;
+    double currentBalance;
+    double newBalance;
+    LocalDateTime currentDateTime = LocalDateTime.now();
+
     @PostMapping("/deposit")
-    public String deposit(@RequestParam("account_number") String account_number,
-                          @RequestParam("amount") BigDecimal amount,
-                          @RequestParam("description") String description) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            return "Amount must be greater than zero.";
+    public String deposit(@RequestParam("amount")String depositAmount,
+                          @RequestParam("description")String description,
+                          @RequestParam("account_id") String accountID,
+                          HttpSession session,
+                          RedirectAttributes redirectAttributes){
+
+        //CHECK FOR EMPTY STRINGS:
+        if(depositAmount.isEmpty() || accountID.isEmpty()){
+            redirectAttributes.addFlashAttribute("error", "Deposit Amount or Account Depositing to Cannot Be Empty!");
+            return "redirect:/app/home";
+        }
+        // GET LOGGED IN USER:
+        user = (User)session.getAttribute("user");
+
+        // GET CURRENT ACCOUNT BALANCE:
+        int acc_id = Integer.parseInt(accountID);
+
+        double depositAmountValue = Double.parseDouble(depositAmount);
+
+        //CHECK IF DEPOSIT AMOUNT IS 0 (ZERO):
+        if(depositAmountValue == 0){
+            redirectAttributes.addFlashAttribute("error", "Deposit Amount Cannot Be of 0 (Zero) Value");
+            return "redirect:/app/home";
         }
 
-        try {
-            // Fetch account and update balance
-            Account account = accountRepository.findByAccountNumber(account_number);
-            if (account == null) {
-                return "Account not found.";
-            }
+        //  UPDATE BALANCE:
+        currentBalance = accountRepository.getAccountBalance(user.getUser_id(), acc_id);
 
-            account.setBalance(account.getBalance().add(amount));
-            accountRepository.save(account);
+        newBalance = currentBalance + depositAmountValue;
 
-            // Create transaction record
-            Transaction transaction = new Transaction();
-            transaction.setAccount_id(account.getAccountId());
-            transaction.setAccountNumber(account_number);
-            transaction.setTransactionType("DEPOSIT");
-            transaction.setAmount(amount);
-            transaction.setTransactionDate(LocalDateTime.now());
-            transaction.setDescription(description);
-            transactionRepository.save(transaction);
+        // Update Account:
+        accountRepository.changeAccountBalanceById(newBalance, acc_id);
 
-            return "Deposit successful. New Balance: " + account.getBalance();
-        } catch (Exception e) {
-            return "Error occurred during deposit: " + e.getMessage();
-        }
+       
+
+        redirectAttributes.addFlashAttribute("success", "Amount Deposited Successfully");
+        return "redirect:/app/home";
     }
 
     // Withdrawal Endpoint
     @PostMapping("/withdraw")
-    public String withdraw(@RequestParam("account_number") String account_number,
-                           @RequestParam("amount") BigDecimal amount,
-                           @RequestParam("description") String description) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            return "Amount must be greater than zero.";
+    public String withdraw(@RequestParam("withdrawal_amount")String withdrawalAmount,
+                           @RequestParam("account_id")String accountID,
+                           @RequestParam("description")String description,
+                           HttpSession session,
+                           RedirectAttributes redirectAttributes){
+
+        String errorMessage;
+        String successMessage;
+
+        //  CHECK FOR EMPTY VALUES:
+        if(withdrawalAmount.isEmpty() || accountID.isEmpty()){
+            errorMessage = "Withdrawal Amount and Account Withdrawing From Cannot be Empty ";
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/app/home";
+        }
+        //  COVERT VARIABLES:
+        double withdrawal_amount = Double.parseDouble(withdrawalAmount);
+        int account_id = Integer.parseInt(accountID);
+
+        //  CHECK FOR 0 (ZERO) VALUES:
+        if (withdrawal_amount == 0){
+            errorMessage = "Withdrawal Amount Cannot be of 0 (Zero) value, please enter a value greater than 0 (Zero)";
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/app/home";
         }
 
-        try {
-            // Fetch account and validate balance
-            Account account = accountRepository.findByAccountNumber(account_number);
-            if (account == null) {
-                return "Account not found.";
-            }
-            if (account.getBalance().compareTo(amount) < 0) {
-                return "Insufficient balance.";
-            }
+        //  GET LOGGED IN USER:
+        user = (User) session.getAttribute("user");
 
-            // Update account balance
-            account.setBalance(account.getBalance().subtract(amount));
-            accountRepository.save(account);
+        //  GET CURRENT BALANCE:
+        currentBalance = accountRepository.getAccountBalance(user.getUser_id(), account_id);
 
-            // Create transaction record
-            Transaction transaction = new Transaction();
-            transaction.setAccount_id(account.getAccountId());
-            transaction.setAccountNumber(account_number);
-            transaction.setTransactionType("WITHDRAWAL");
-            transaction.setAmount(amount);
-            transaction.setTransactionDate(LocalDateTime.now());
-            transaction.setDescription(description);
-            transactionRepository.save(transaction);
-
-            return "Withdrawal successful. New Balance: " + account.getBalance();
-        } catch (Exception e) {
-            return "Error occurred during withdrawal: " + e.getMessage();
+        //  CHECK IF TRANSFER AMOUNT IS MORE THAN CURRENT BALANCE:
+        if(currentBalance < withdrawal_amount){
+            errorMessage = "You Have insufficient Funds to perform this Withdrawal!";
+          
+          
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/app/home";
         }
+
+        //  SET NEW BALANCE:
+        newBalance = currentBalance - withdrawal_amount;
+
+        //  UPDATE ACCOUNT BALANCE:
+        accountRepository.changeAccountBalanceById(newBalance, account_id);
+
+        successMessage = "Withdrawal Successful!";
+        redirectAttributes.addFlashAttribute("success", successMessage);
+        return "redirect:/app/home";
     }
+    // End Of Withdrawal Method.
 
     // Transfer Endpoint
     @PostMapping("/transfer")
-    public String transfer(@RequestParam("from_account") String from_account,
-                           @RequestParam("to_account") String to_account,
-                           @RequestParam("amount") BigDecimal amount,
-                           @RequestParam("description") String description) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            return "Amount must be greater than zero.";
+    public String transfer(@RequestParam("transfer_from") String transfer_from,
+                            @RequestParam("transfer_to") String transfer_to,
+                            @RequestParam("transfer_amount")String transfer_amount,
+                           @RequestParam("description") String description,
+                           HttpSession session,
+                           RedirectAttributes redirectAttributes) {
+        // Init Error Message Value:
+        String errorMessage;
+
+        //  CHECK FOR EMPTY FIELDS:
+        if(transfer_from.isEmpty() || transfer_to.isEmpty() || transfer_amount.isEmpty()){
+             errorMessage = "The account transferring from and to along with the amount cannot be empty!";
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/app/home";
         }
 
-        try {
-            // Fetch accounts
-            Account sourceAccount = accountRepository.findByAccountNumber(from_account);
-            Account destinationAccount = accountRepository.findByAccountNumber(to_account);
+        //  CONVERT VARIABLES:
+        int transferFromId = Integer.parseInt(transfer_from);
+        int transferToId = Integer.parseInt(transfer_to);
+        double transferAmount = Double.parseDouble(transfer_amount);
 
-            if (sourceAccount == null || destinationAccount == null) {
-                return "One or both accounts not found.";
-            }
-            if (sourceAccount.getBalance().compareTo(amount) < 0) {
-                return "Insufficient balance in source account.";
-            }
-
-            // Update account balances
-            sourceAccount.setBalance(sourceAccount.getBalance().subtract(amount));
-            destinationAccount.setBalance(destinationAccount.getBalance().add(amount));
-            accountRepository.save(sourceAccount);
-            accountRepository.save(destinationAccount);
-
-            // Create transaction records
-            Transaction debitTransaction = new Transaction();
-            debitTransaction.setAccount_id(sourceAccount.getAccountId());
-            debitTransaction.setAccountNumber(from_account);
-            debitTransaction.setTransactionType("TRANSFER_OUT");
-            debitTransaction.setAmount(amount);
-            debitTransaction.setTransactionDate(LocalDateTime.now());
-            debitTransaction.setDescription(description);
-            transactionRepository.save(debitTransaction);
-
-            Transaction creditTransaction = new Transaction();
-            creditTransaction.setAccount_id(destinationAccount.getAccountId());
-            creditTransaction.setAccountNumber(to_account);
-            creditTransaction.setTransactionType("TRANSFER_IN");
-            creditTransaction.setAmount(amount);
-            creditTransaction.setTransactionDate(LocalDateTime.now());
-            creditTransaction.setDescription(description);
-            transactionRepository.save(creditTransaction);
-
-            return "Transfer successful. Source Balance: " + sourceAccount.getBalance() +
-                   ", Destination Balance: " + destinationAccount.getBalance();
-        } catch (Exception e) {
-            return "Error occurred during transfer: " + e.getMessage();
+        //  CHECK IF TRANSFERRING INTO THE SAME ACCOUNT:
+        if(transferFromId == transferToId){
+            errorMessage = "Cannot Transfer Into The same Account, Please select the appropriate account to perform transfer";
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/app/home";
         }
+
+        //  CHECK FOR 0 (ZERO) VALUES:
+        if(transferAmount == 0){
+            errorMessage = "Cannot Transfer an amount of 0 (Zero) value, please enter a value greater than 0 (Zero) ";
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/app/home";
+        }
+
+        //  GET LOGGED IN USER:
+        user = (User)session.getAttribute("user");
+
+        //  GET CURRENT BALANCE:
+        double currentBalanceOfAccountTransferringFrom  = accountRepository.getAccountBalance(user.getUser_id(), transferFromId);
+
+        //  CHECK IF TRANSFER AMOUNT IS MORE THAN CURRENT BALANCE:
+        if(currentBalanceOfAccountTransferringFrom < transferAmount){
+            errorMessage = "You Have insufficient Funds to perform this Transfer!";
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/app/home";
+        }
+
+        double  currentBalanceOfAccountTransferringTo = accountRepository.getAccountBalance(user.getUser_id(), transferToId);
+
+        //  SET NEW BALANCE:
+        double newBalanceOfAccountTransferringFrom = currentBalanceOfAccountTransferringFrom - transferAmount;
+
+        double newBalanceOfAccountTransferringTo = currentBalanceOfAccountTransferringTo + transferAmount;
+
+        // Changed The Balance Of the Account Transferring From:
+        accountRepository.changeAccountBalanceById( newBalanceOfAccountTransferringFrom, transferFromId);
+
+        // Changed The Balance Of the Account Transferring To:
+        accountRepository.changeAccountBalanceById(newBalanceOfAccountTransferringTo, transferToId);
+
+        String successMessage = "Amount Transferred Successfully!";
+        redirectAttributes.addFlashAttribute("success", successMessage);
+        return "redirect:/app/home";
     }
 }

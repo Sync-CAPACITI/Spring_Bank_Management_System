@@ -1,9 +1,9 @@
 <div class="sidebar">
-    <a href="" class="active">
+    <a href="/app/home" class="active">
         <span class="material-icons-sharp">dashboard</span>
         <h4>Dashboard</h4>
     </a>
-    <a href="">
+    <a href="/transactions">
         <span class="material-icons-sharp">payment</span>
         <h4>Transactions</h4>
     </a>

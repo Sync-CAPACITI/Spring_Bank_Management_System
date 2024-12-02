@@ -28,12 +28,14 @@ public class RestAccountCreationController {
                                 @RequestParam("account_type") String accountType,
                                 RedirectAttributes redirectAttributes,
                                 HttpSession session) {
-        if (accountName == null || accountName.trim().isEmpty()) {
-            return "Account Name cannot be empty!";
-        }
-        if (accountType == null || accountType.trim().isEmpty()) {
-            return "Account Type cannot be empty!";
-        }
+
+        
+
+       // CHECK FOR EMPTY STRINGS:
+       if(accountName.isEmpty() || accountType.isEmpty()){
+        redirectAttributes.addFlashAttribute("error", "Account Name and Type Cannot be Empty!");
+        return "redirect:/app/home";
+    }
         try {
             String bankAccountNumber = GenAccountNumber.generateAccountNumber();
             LocalDateTime now = LocalDateTime.now();
@@ -42,13 +44,6 @@ public class RestAccountCreationController {
             
             accountRepository.createBankAccount(user.getUser_id(), bankAccountNumber, accountName, accountType, BigDecimal.ZERO, now);
 
-                    // CHECK FOR EMPTY STRINGS:
-            if(accountName.isEmpty() || accountType.isEmpty()){
-                redirectAttributes.addFlashAttribute("error", "Account Holder Name and Type Cannot be Empty!");
-                return "redirect:/app/home";
-            }
-
-
             redirectAttributes.addFlashAttribute("success", "Account Created Successfully!");
             return "redirect:/app/home";
 
@@ -56,10 +51,10 @@ public class RestAccountCreationController {
 
 
         } catch (Exception e) {
-            return "Error occurred while creating account: " + e.getMessage();
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/app/home";
         }
     }
-
     
 
     @GetMapping

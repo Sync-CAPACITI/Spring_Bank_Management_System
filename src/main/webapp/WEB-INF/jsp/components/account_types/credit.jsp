@@ -22,6 +22,8 @@
     </div>
     <div class="bottom">
         <div class="left">
+            <small class="holder-name">Account Number</small>
+            <h5>${account.accountNumber}</h5> <!-- Display the account name -->
             <!-- Display account holder name -->
             <small class="holder-name">Card Holder</small>
             <h5>${account.accountName}</h5> <!-- Display the account name -->

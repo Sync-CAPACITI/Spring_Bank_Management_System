@@ -1,20 +1,14 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
 
 <div class="wrapper" id="app">
   <div class="card-form">
 
-    <c:choose>
-      <c:when test="${accountType == 'savings'}">
-        <c:import url="components/account_types/savings.jsp" />
-      </c:when>
-      <c:when test="${accountType == 'cheque'}">
-        <c:import url="components/account_types/cheque.jsp" />
-      </c:when>
-      <c:when test="${accountType == 'credit'}">
-        <c:import url="components/account_types/credit.jsp" />
-      </c:when>
-    </c:choose>
-    <form action="/transact/deposit" method="POST">
+    
+    <c:import url="components/dashboard_components/normal_card.jsp"/>
+    <form action="/api/transactions/deposit" method="POST">
     <div class="card-form__inner">
       
       <div class="card-input">
@@ -24,17 +18,29 @@
             <option value="">-- Select Account --</option>
                             <c:if test="${userAccounts != null}">
                                 <c:forEach items="${userAccounts}" var="selectAccount">
-                                    <option value="${selectAccount.account_id}">${selectAccount.account_name}</option>
+                                    <option value="${selectAccount.accountId}">${selectAccount.accountName}</option>
                                 </c:forEach>
                             </c:if>
           </select>
         </div>
       </div>
       <div class="card-input">
+        <label for="cardName" class="card-input__label">Description</label>
+        <input
+          type="text"
+          maxlength="50" 
+          name="description"
+          class="card-input__input"
+          placeholder="Enter a deposit Description"
+          autocomplete="off"
+        />
+      </div>
+      <div class="card-input">
         <label for="cardName" class="card-input__label">Amount</label>
         <input
           type="number"
-          maxlength="10"
+          maxlength="10" 
+          name="amount"
           class="card-input__input"
           placeholder="Enter amount"
           autocomplete="off"

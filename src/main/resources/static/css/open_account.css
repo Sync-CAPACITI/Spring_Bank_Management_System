@@ -1,19 +1,26 @@
 
 .wrapper {
-    margin-top: -6rem;
-    position: relative;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    background-color: #f1f1fb;
-    width: 500px;
-    padding: 3em;
-    border-radius: 1em;
-    perspective: 800px;
-    box-shadow: inset -0.42px 1.96px 2.37px -0.30px rgba(0, 0, 0, 0.15),
-  inset 0.62px -2.93px 2.37px -0.30px rgba(0, 0, 0, 0.3),
-  -1.25px 5.87px 1.78px -0.89px rgba(0, 0, 0, 0.6);
-  }
+  margin-top: 50px;
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  
+  background-color: #f1f1fb;
+  padding: 3em;        
+  border-radius: 1em;
+  perspective: 800px;
+  
+  box-shadow: inset -0.42px 1.96px 2.37px -0.30px rgba(0, 0, 0, 0.15),
+              inset 0.62px -2.93px 2.37px -0.30px rgba(0, 0, 0, 0.3),
+              -1.25px 5.87px 1.78px -0.89px rgba(0, 0, 0, 0.6);
+  width: auto;
+  height: auto; 
+  max-width: 100%; 
+  max-height: 100%; 
+}
+
+
   .header{
     margin-top: 3rem;
     color: #003554;
