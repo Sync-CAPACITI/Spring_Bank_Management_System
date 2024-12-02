@@ -18,34 +18,32 @@ The **Spring Bank Management System** is a web-based application that allows use
 ## Features
 
 1. **Account Creation**  
-   Users can create multiple accounts, but only one account per type (e.g., Checking, Savings). The system ensures no duplicate account types are created for each user.
-
-2. **Multiple Account Types**  
+   Users can create multiple accounts, but only one account per type (e.g., Checking, Savings).
+   
+3. **Multiple Account Types**  
    Users can maintain different account types, but cannot create duplicate accounts of the same type (e.g., two Checking accounts).
 
-3. **Account Management**  
+4. **Account Management**  
    Users can view their accounts, check balances, and access transaction history.
 
-4. **Transfers Between Accounts**  
+5. **Transfers Between Accounts**  
    Users can transfer funds from one account to another within their profile. The system ensures that there are sufficient funds for transfers.
 
-5. **Withdrawals**  
+6. **Withdrawals**  
    Users can withdraw funds from their accounts, as long as the available balance is sufficient.
 
-6. **Transaction History**  
+7. **Transaction History**  
    Users can view a history of all transactions made for each of their accounts.
 
-7. **Add Descriptions for Transactions**  
+8. **Add Descriptions for Transactions**  
    Users can add a description (e.g., "Rent payment", "Savings deposit", "Transfer to personal savings") when making a transfer or withdrawal. This helps users track the purpose or reason for each transaction.
 
-8. **Token-based Authentication**  
+9. **Token-based Authentication**  
    The system uses **JWT (JSON Web Tokens)** to authenticate users securely. This allows users to log in once, receive a token, and use it to make authenticated requests to the backend without having to re-enter credentials.
 
-9. **Real-time Updates**  
+10. **Real-time Updates**  
    The system implements **WebSockets** to enable real-time updates. When a user makes a transfer, withdrawal, or receives an update, the page automatically reflects the change (e.g., updated account balance) without requiring a page reload.
 
-10. **Responsive Web Interface**  
-    The system features a modern and responsive web interface using **HTML**, **CSS**, and **JavaScript**, providing a seamless experience across all devices.
 
 ## System Requirements
 
@@ -64,23 +62,21 @@ The **Spring Bank Management System** is a web-based application that allows use
 Users can create a new account by filling out a form with their personal details (e.g., name, account type, initial deposit). The system will automatically save the details to the database.
 
 Example:  
-- Navigate to the "Create Account" page.
-- Enter your name, select an account type (Checking or Savings), and input your initial deposit.
+- Navigate to the Dashboad page.
+- Enter your name, select an account type (Checking or Savings).
 - Click "Create Account" to finalize the process.
 
 ### 2. **Viewing Account Details**
 
-Once logged in, users can view their account details, including the type of account, current balance, and recent transactions. This page will display a list of accounts associated with the user.
+Once logged in, users can view their account details, including the type of account, current balance, and recent transactions. This page will display a list of accounts associated with the user in different cards styles.
 
 Example:  
-- Go to the "My Accounts" page to view your accounts and balances.
+- Go to the Dashboard page to view your accounts and balances.
 
 ### 3. **Logging In and Authentication**
 
-Upon registration, users can log in using their credentials (username and password). After successful login, a **JWT token** will be issued, which the user can use to make authenticated API requests.
-
-Example:  
-- After logging in, the system will issue a JWT token. This token should be included in the header for all subsequent requests to access secured endpoints.
+Upon registration, users can log in using their credentials (username and password). After successful registration, a **JWT token** will be issued, which the user can use to make authenticated API requests.
+ 
 
 ### 4. **Transferring Funds Between Accounts**
 
@@ -107,7 +103,7 @@ Example:
 Each account tracks all deposits, withdrawals, and transfers made. Users can view their transaction history for each account, which includes the description of each transaction.
 
 Example:  
-- On the "Transaction History" page, select an account and view all related transactions, including descriptions like "Transfer to Savings" or "Rent payment".
+- On the "Transaction History" page, view all related transactions, including descriptions like "Transfer to Savings" or "Rent payment".
 
 ### 7. **Real-time Updates**
 
@@ -163,4 +159,4 @@ Example:
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the Async-Tech License.
