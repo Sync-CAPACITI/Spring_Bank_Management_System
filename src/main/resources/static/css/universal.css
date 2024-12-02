@@ -388,14 +388,14 @@ main section.middle .header{
 
 /* cards css */
 
-main section.middle .cards{
+main section.middle {
     margin-top: 1rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
 }
 
-main section.middle .cards .card{
+main section.middle .card{
     background: linear-gradient(#ff796f, #bd261b);
     padding: var(--card-padding);
     border-radius: var(--card-border-raduis);
@@ -408,17 +408,17 @@ main section.middle .cards .card{
     transition: all 300 ease;
 }
 
-main section.middle .cards .card:nth-child(2){
+main section.middle .card:nth-child(2){
     background: linear-gradient(#7f8181, #27282f);
     box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.2)
 }
 
-main section.middle .cards .card:nth-child(2){
+main section.middle .card:nth-child(2){
     background: linear-gradient(#5d70ff, #5719c2);
     box-shadow: 0 2rem 3rem var(--color-primary-light);
 }
 
-main section.middle .cards .card:hover{
+main section.middle .card:hover{
     box-shadow: none;
 }
 

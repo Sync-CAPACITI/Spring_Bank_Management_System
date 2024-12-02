@@ -1,4 +1,9 @@
-<p>Account type Sav: ${account.accountType}</p>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+<c:if test="${requestScope.userAccounts != null }">
+
+    <c:forEach items="${requestScope.userAccounts}" var="account">
 <div class="card">
     <div class="top">
         <div class="left">
@@ -30,3 +35,6 @@
         </div>
     </div>
 </div>
+</c:forEach>
+
+</c:if>
