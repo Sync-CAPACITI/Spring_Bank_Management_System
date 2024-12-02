@@ -16,7 +16,7 @@ public class Transaction {
     
     @Column(name = "account_id", nullable = false) 
     private int account_id;
-    
+    private int user_id;
     private String account_number;
     private String transaction_type; // "DEPOSIT", "WITHDRAWAL", or "TRANSFER"
     private BigDecimal amount;
