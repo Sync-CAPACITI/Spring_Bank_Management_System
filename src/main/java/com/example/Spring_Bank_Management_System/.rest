@@ -2,6 +2,10 @@
 ### Fetch All Accounts
 GET http://localhost:8000/api/accounts
 
+### Fetch All Accounts
+### Fetch Transactions for a Specific User
+GET http://localhost:8000/api/transactions/transactionsList/2
+Content-Type: application/json
 
 
 ### Transfer Request

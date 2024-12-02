@@ -7,7 +7,7 @@
         <h4>Dashboard</h4>
          
     </a>
-    <a href="/app/transactionsList">
+    <a href="/transactionsList">
         <span class="material-icons-sharp">payment</span>
         <h4>Transactions</h4>
     </a>

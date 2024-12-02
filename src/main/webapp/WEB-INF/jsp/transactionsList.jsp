@@ -55,36 +55,34 @@
          
         <section class="middle">
      
-  
-            <table>
-                <thead>
-                    <tr>
-                        <th>Transaction ID</th>
-                        <th>Account Name</th>
-                        <th>Account Number</th>
-                        <th>Transaction Type</th>
-                        <th>Amount</th>
-                        <th>Balance</th>
-                        <th>Transaction Date</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${userTransactions}" var="transaction">
+          
+                <h1>Transactions</h1>
+                <table>
+                    <thead>
                         <tr>
-                            <td>${transaction.transactionId}</td>
-                            <td>${transaction.accountName}</td>
-                            <td>${transaction.accountNumber}</td>
-                            <td>${transaction.transactionType}</td>
-                            <td>${transaction.amount}</td>
-                            <td>${transaction.balance}</td>
-                            <td>${transaction.transactionDate}</td>
-                            <td>${transaction.description}</td>
+                            <th>Transaction ID</th>
+                            <th>Account Number</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Description</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through the transactions -->
+                        <tr th:each="transaction : ${transactions}">
+                            <td th:text="${transaction.transaction_id}"></td>
+                            <td th:text="${transaction.account_number}"></td>
+                            <td th:text="${transaction.transaction_type}"></td>
+                            <td th:text="${transaction.amount}"></td>
+                            <td th:text="${transaction.transaction_date}"></td>
+                            <td th:text="${transaction.description}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+          
             
+        
 
         </section>
         <!-- section end mid -->

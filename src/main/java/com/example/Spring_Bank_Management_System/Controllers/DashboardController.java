@@ -34,5 +34,15 @@ public class DashboardController {
         System.out.println("In The withdraw Page Controller");
         return getIndexPage;
     }
+    
+    @GetMapping("/transactionsList")
+    public ModelAndView getTransactions(){
+        ModelAndView getIndexPage = new ModelAndView("transactionsList");
+        getIndexPage.addObject("PageTitle", "Withdraw_Cash");
+        System.out.println("In The transactions List Page Controller");
+        return getIndexPage;
+    }
+    
+
 
 }

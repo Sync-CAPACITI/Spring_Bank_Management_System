@@ -17,31 +17,7 @@ import com.example.Spring_Bank_Management_System.dto.UserTransactionDTO;
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Integer> {
 
-    @Query(value = """
-        SELECT 
-            new com.example.Spring_Bank_Management_System.dto.UserTransactionDTO(
-                t.transactionId,
-                t.account_Id,
-                t.accountNumber,
-                t.amount,
-                t.description,
-                t.transactionDate,
-                t.transactionType,
-                t.destinationAccountId,
-                t.destinationAccountNumber,
-                a.accountName,
-                a.accountType,
-                a.balance
-            )
-        FROM 
-            Transaction t
-        JOIN 
-            Account a ON t.accountId = a.accountId
-        WHERE 
-            a.userId = :userId
-        """)
-    List<UserTransactionDTO> getUserTransactions(@Param("userId") int userId);
-    
+
     @Query(value = "SELECT * FROM accounts WHERE user_id = :user_id", nativeQuery = true)
     List<Account> getUserAccountsById(@Param("user_id") int userId);
 

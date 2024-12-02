@@ -15,19 +15,21 @@ public class Transaction {
     private int transaction_id;
 
     @ManyToOne
-    @JoinColumn(name = "accountId", referencedColumnName = "accountId")
+    @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false) // Maps to Account entity
     private Account account;
     
-    @Column(name = "account_id", nullable = false) 
-    private int account_id;
+
     
     private String account_number;
     private String transaction_type; // "DEPOSIT", "WITHDRAWAL", or "TRANSFER"
     private BigDecimal amount;
     private LocalDateTime transaction_date = LocalDateTime.now();
     private String description;
-
     
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id") 
+    private User user; 
 
 
     @Column(name = "destination_account_number", nullable = true) // For transfer transactions

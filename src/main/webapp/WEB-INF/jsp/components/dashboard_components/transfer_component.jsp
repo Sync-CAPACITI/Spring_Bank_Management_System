@@ -13,7 +13,7 @@
               <!-- Debugging line to check userAccounts list -->
               <p>User Accounts: ${userAccounts}</p> <!-- This will print the userAccounts list -->
 
-              <select  name="from_account"id="from-account">
+              <select  name="from_account" id="from-account">
                 <option value="">-- Select Account --</option>
 
                 <!-- Manually add options for each account if needed -->
@@ -22,18 +22,15 @@
                     <c:when test="${userAccounts.size() > 0}">
                           <!-- Thid is the value we sent to the databse SELECT * FROM accounts WHERE account_number = :account_number"-->
                           <option value="${userAccounts[0].accountNumber}">
-                              ${userAccounts[0].accountNumber} ${userAccounts[0].accountType}
+                              ${userAccounts[0].accountType}  ${userAccounts[0].accountName} 
                           </option>
                     </c:when>
 
                     <c:when test="${userAccounts.size() > 1}">
                         <option value="${userAccounts[0].accountNumber}">
-                              ${userAccounts[0].accountNumber} 
+                          ${userAccounts[1].accountType} -${userAccounts[1].accountName} 
                         </option>
 
-                        <option value="${userAccounts[0].accountNumber}">
-                              AC162147
-                        </option>
                     </c:when>
 
                     <!-- Continue for more accounts as needed -->

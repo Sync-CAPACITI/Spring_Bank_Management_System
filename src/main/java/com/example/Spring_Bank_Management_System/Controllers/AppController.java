@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,10 @@ import com.example.Spring_Bank_Management_System.Entities.Account;
 import com.example.Spring_Bank_Management_System.Entities.User;
 import com.example.Spring_Bank_Management_System.dto.*;
 import com.example.Spring_Bank_Management_System.repository.AccountRepository;
+import com.example.Spring_Bank_Management_System.repository.TransactionRepository;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transaction;
 
 
 
@@ -70,25 +73,13 @@ public class AppController {
 
     return getIndexPage;
     }
+
+    
+
+    
     
 
 
-    @GetMapping("/transactionsList")
-    public ModelAndView getTransactions(HttpSession session) {
-        ModelAndView getIndexPage = new ModelAndView("transactionsList");
-        User user = (User) session.getAttribute("user");  // Fetch user from session
-    
-        // Get the transactions of the logged-in user
-        List<UserTransactionDTO> transactions = accountRepository.getUserTransactions(user.getUser_id());
-    
-        // Ensure the transactions list is not empty
-        if (transactions != null && !transactions.isEmpty()) {
-            getIndexPage.addObject("userTransactions", transactions);
-        } else {
-            getIndexPage.addObject("userTransactions", new ArrayList<>()); // In case the list is empty
-        }
-    
-        return getIndexPage;
-    }
+
 
 }
