@@ -1,6 +1,6 @@
 # Spring Bank Management System
 
-[Link Preview](https://spring-bank-management-system.onrender.com)
+[Link Preview](https://www.loom.com/share/8cac23bb87b849fbbacf2a9158b27e2c?sid=2505ccbb-8c12-496c-b016-cba6ad917c48)
 
 ## Introduction
 
