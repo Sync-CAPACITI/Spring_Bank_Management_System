@@ -2,7 +2,7 @@ package com.example.Spring_Bank_Management_System.rest_controllers;
 
 import com.example.Spring_Bank_Management_System.Entities.User;
 import jakarta.servlet.http.HttpSession;
-
+import org.springframework.stereotype.Controller;
 import com.example.Spring_Bank_Management_System.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 
-@RestController
+@Controller
 @RequestMapping("/api/transactions")
 public class TransactionController {
 

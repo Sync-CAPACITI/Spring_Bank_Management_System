@@ -52,6 +52,21 @@
         <!-- aside end -->
          
         <section class="middle">
+             <!-- Display Message -->
+             <c:if test="${success != null}">
+                <div class="alert alert-info text-center border border-info">
+                    <b>${success}</b>
+                </div>
+            </c:if>
+            <!-- End Of Display Message -->
+
+            <!-- Display Message -->
+            <c:if test="${error!= null}">
+                <div class="alert alert-danger text-center border border-danger">
+                    <b>${error}</b>
+                </div>
+            </c:if>
+            <!-- End Of Display Message -->
             <h1>Deposit Cash</h1>
         </div>
         <c:import url="components/dashboard_components/deposit_cash.jsp"/>
