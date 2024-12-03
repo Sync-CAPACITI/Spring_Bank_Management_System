@@ -25,7 +25,7 @@ public class TransactionController {
 
     @Autowired
     private AccountRepository accountRepository;
-
+    User user;
     // Deposit Endpoint
     @PostMapping("/deposit")
     public String deposit(@RequestParam("account_number") String account_number,
@@ -186,9 +186,19 @@ public class TransactionController {
 
     @GetMapping("/transactionsList/{userId}")
     public List<Transaction> getTransactionsByUserId(@PathVariable("userId") int userId, HttpSession session) {
+        
+        ModelAndView getIndexPage = new ModelAndView("transactionsList");
         // Get the logged-in user from the session
         User sessionUser = (User) session.getAttribute("user");
-    
+        List<Transaction> transactions = transactionRepository.findByUser(sessionUser);
+
+        // Ensure the accounts list is not empty
+        if (transactions != null && !transactions.isEmpty()) {
+            getIndexPage.addObject("transactions", transactions);
+        } else {
+            getIndexPage.addObject("transactions", new ArrayList<>()); // In case the list is empty
+        }
+
         // Validate session user
         if (sessionUser == null || sessionUser.getUser_id() != userId) {
             throw new SecurityException("Unauthorized access or user not logged in.");

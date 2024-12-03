@@ -3,6 +3,9 @@ package com.example.Spring_Bank_Management_System.Controllers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.Spring_Bank_Management_System.Entities.User;
+
+
 
 import org.springframework.stereotype.Controller;
 
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class DashboardController {
+    User user;
 
 
     @GetMapping("/open_account")
@@ -35,13 +39,7 @@ public class DashboardController {
         return getIndexPage;
     }
     
-    @GetMapping("/transactionsList")
-    public ModelAndView getTransactions(){
-        ModelAndView getIndexPage = new ModelAndView("transactionsList");
-        getIndexPage.addObject("PageTitle", "Withdraw_Cash");
-        System.out.println("In The transactions List Page Controller");
-        return getIndexPage;
-    }
+
     
 
 

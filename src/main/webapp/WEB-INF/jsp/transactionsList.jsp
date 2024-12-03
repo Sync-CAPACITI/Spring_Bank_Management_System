@@ -26,9 +26,20 @@
 
      <!-- calenda css -->
      <link rel="stylesheet" href="../css/calenda.css">
+     <!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>Transactions</title>
 
+   
+        
+
+     
 </head>
 <body>
+     
 
     <c:import url="components/dashboard_components/nav.jsp"/>
 
@@ -54,37 +65,44 @@
         <!-- aside end -->
          
         <section class="middle">
-     
-          
-                <h1>Transactions</h1>
-                <table>
+              <p>
+            
+                Showing Transactions for ${userAccounts[0].accountName}  </p>
+
+                <table  style="width: 100%; border-collapse: collapse; margin-top: 20px;">
                     <thead>
                         <tr>
                             <th>Transaction ID</th>
                             <th>Account Number</th>
-                            <th>Type</th>
+                            <th>Transaction Type</th>
                             <th>Amount</th>
-                            <th>Date</th>
+                            <th>Transaction Date</th>
                             <th>Description</th>
+                            <th>Destination Account</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Loop through the transactions -->
-                        <tr th:each="transaction : ${transactions}">
-                            <td th:text="${transaction.transaction_id}"></td>
-                            <td th:text="${transaction.account_number}"></td>
-                            <td th:text="${transaction.transaction_type}"></td>
-                            <td th:text="${transaction.amount}"></td>
-                            <td th:text="${transaction.transaction_date}"></td>
-                            <td th:text="${transaction.description}"></td>
-                        </tr>
+                        <c:forEach var="transaction" items="${transactions}">
+                            <tr>
+                                <td>${transaction.transaction_id}</td>
+                                <td>${transaction.account_number}</td>
+                                <td>${transaction.transaction_type}</td>
+                                <td>${transaction.amount}</td>
+                                <td>
+                                ${transaction.transaction_date}
+                                </td>
+                                <td>${transaction.description}</td>
+                                <td>${transaction.destination_account_number}</td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
+        </section>
           
             
         
 
-        </section>
+        
         <!-- section end mid -->
 
 

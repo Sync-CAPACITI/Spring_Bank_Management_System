@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.Spring_Bank_Management_System.Entities.Account;
+import com.example.Spring_Bank_Management_System.Entities.Transaction;
 import com.example.Spring_Bank_Management_System.Entities.User;
-import com.example.Spring_Bank_Management_System.dto.*;
+
 import com.example.Spring_Bank_Management_System.repository.AccountRepository;
 import com.example.Spring_Bank_Management_System.repository.TransactionRepository;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transaction;
+
 
 
 
@@ -29,7 +30,9 @@ public class AppController {
 
     @Autowired
     private AccountRepository accountRepository;
-
+    
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     User user;
 
@@ -79,7 +82,29 @@ public class AppController {
     
     
 
+    @GetMapping("/transactionsList")
+    public ModelAndView getTransactions(HttpSession session){
+        ModelAndView getIndexPage = new ModelAndView("transactionsList");
+        user = (User) session.getAttribute("user"); 
 
+        List<Account> getUserAccounts = accountRepository.getUserAccountsById(user.getUser_id());
+        List<Transaction> transactions = transactionRepository.findByUser(user);
+        // Ensure the accounts list is not empty
+        if (getUserAccounts != null && !getUserAccounts.isEmpty()) {
+            getIndexPage.addObject("userAccounts", getUserAccounts);
+        } else {
+            getIndexPage.addObject("userAccounts", new ArrayList<>()); // In case the list is empty
+        }
+        if (transactions != null && !transactions.isEmpty()) {
+            getIndexPage.addObject("transactions", transactions);
+        } else {
+            getIndexPage.addObject("transactions", new ArrayList<>()); // In case the list is empty
+        }
+
+
+        System.out.println("In The transactions List Page Controller");
+        return getIndexPage;
+    }
 
 
 }
