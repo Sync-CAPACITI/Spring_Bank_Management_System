@@ -13,7 +13,7 @@
         <img src="../images/visa.png" alt="" class="right">
     </div>
     <div class="middle">
-        <h1 class="balance">R ${account.Balance} </h1>
+        <h1 class="balance">R ${account.balance} </h1>
         <div class="chip">
             <img src="../images/chip.png" alt="">
         </div>
