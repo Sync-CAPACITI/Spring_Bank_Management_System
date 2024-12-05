@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Spring_Bank_Management_System.Entities.Account;
-import com.example.Spring_Bank_Management_System.dto.UserTransactionDTO;
+
 
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Integer> {
