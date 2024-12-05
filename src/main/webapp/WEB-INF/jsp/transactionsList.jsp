@@ -24,16 +24,92 @@
      <!--clock ui-->
      <link rel="stylesheet" href="../css/clock.css">
 
+
+
+
      <!-- calenda css -->
      <link rel="stylesheet" href="../css/calenda.css">
-     <!DOCTYPE html>
-     <html lang="en">
-     <head>
+     
+     <!-- The Data Tables -->
+
+        
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />  
+        <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
          <meta charset="UTF-8">
          <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <title>Transactions</title>
 
-   
+         <style>
+            /* Glassmorphism styles go here */
+
+            .middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1); /* Transparent white */
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.middle p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000; /* Black text for the title */
+    margin-bottom: 20px;
+}
+
+#myTable {
+    width: 100%;
+    border-collapse: collapse;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2); /* Transparent white */
+    border-radius: 15px;
+    overflow: hidden; /* Rounded corners for table */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    color: #000000; /* Black text for the table */
+}
+
+#myTable thead {
+    background: rgba(255, 255, 255, 0.25); /* Slightly opaque header */
+    font-weight: bold;
+}
+
+#myTable thead th {
+    padding: 12px;
+    text-align: left;
+    color: #000000; /* Black text for the table header */
+    text-shadow: none; /* Remove shadow for clarity */
+}
+
+#myTable tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out;
+}
+
+#myTable tbody tr:hover {
+    background: rgba(0, 0, 0, 0.05); /* Slightly darker on hover */
+}
+
+#myTable tbody td {
+    padding: 12px;
+    text-align: left;
+    color: #000000; /* Black text for table body */
+    text-shadow: none; /* Remove shadow for clarity */
+}
+
+#myTable tbody td:first-child {
+    font-weight: bold;
+}
+
+#myTable tbody tr:last-child {
+    border-bottom: none;
+}
+
+        </style>
         
 
      
@@ -65,11 +141,10 @@
         <!-- aside end -->
          
         <section class="middle">
-              <p>
+              <p>Showing Transactions for ${userAccounts[0].accountName}  </p>
             
-                Showing Transactions for ${userAccounts[0].accountName}  </p>
-
-                <table  style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            
+                <table id="myTable" class="display" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
                     <thead>
                         <tr>
                             <th>Transaction ID</th>
