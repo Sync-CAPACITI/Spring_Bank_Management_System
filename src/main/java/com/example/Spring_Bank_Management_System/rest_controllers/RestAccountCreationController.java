@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
@@ -24,19 +25,20 @@ public class RestAccountCreationController {
     private AccountRepository accountRepository;
 
     @PostMapping("/create")
-    public String createAccount(
+    public ModelAndView createAccount(
                                 @RequestParam("account_name") String accountName,
                                 @RequestParam("account_type") String accountType,
                                 RedirectAttributes redirectAttributes,
                                 HttpSession session) {
 
-        
+        ModelAndView dashboard = new ModelAndView("home");
 
-       // CHECK FOR EMPTY STRINGS:
-       if(accountName.isEmpty() || accountType.isEmpty()){
-        redirectAttributes.addFlashAttribute("error", "Account Name and Type Cannot be Empty!");
-        return "redirect:/app/home";
-    }
+        if (accountName == null || accountName.trim().isEmpty()) {
+            return dashboard;
+        }
+        if (accountType == null || accountType.trim().isEmpty()) {
+            return dashboard;
+        }
         try {
             String bankAccountNumber = GenAccountNumber.generateAccountNumber();
             LocalDateTime now = LocalDateTime.now();
@@ -45,15 +47,21 @@ public class RestAccountCreationController {
             
             accountRepository.createBankAccount(user.getUser_id(), bankAccountNumber, accountName, accountType, BigDecimal.ZERO, now);
 
+                    // CHECK FOR EMPTY STRINGS:
+            if(accountName.isEmpty() || accountType.isEmpty()){
+                redirectAttributes.addFlashAttribute("error", "Account Holder Name and Type Cannot be Empty!");
+                return dashboard;
+            }
+
+
             redirectAttributes.addFlashAttribute("success", "Account Created Successfully!");
-            return "redirect:/app/home";
+            return dashboard;
 
             
 
 
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/app/home";
+            return  dashboard;
         }
     }
     

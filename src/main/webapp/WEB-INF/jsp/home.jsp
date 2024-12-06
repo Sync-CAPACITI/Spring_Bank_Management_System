@@ -75,7 +75,9 @@
             <c:choose>
                 <c:when test="${fn:length(userAccounts) > 0 }">
                     <!-- Display Accounts --->
+                
                     <c:import url="components/account.jsp"/>
+           
                 </c:when>
                 <c:otherwise>
                     <!-- Dont Display Accounts -->

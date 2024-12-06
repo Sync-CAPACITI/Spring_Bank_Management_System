@@ -3,12 +3,32 @@
 GET http://localhost:8000/api/accounts
 
 
+
+### Log in 
+POST http://localhost:8000/login
+Content-Type: application/x-www-form-urlencoded
+
+email=sinawomngxuma@gmail.com&password=admin&_token=fd696a2e-bc52-40a9-b5b2-076e55f21b3a
+
+
+### Fetch Transactions for a Specific User
+GET http://localhost:8000/api/transactions/transactionsList/4
+Content-Type: application/json
+
+
+### Transfer Request
+POST http://localhost:8000/api/transactions/transfer
+Content-Type: application/x-www-form-urlencoded
+
+from_account=AC862202&to_account=AC162147&amount=1000.00&description=Transfer%20for%20services
+
+
 ### Acount creation 
 
 POST http://localhost:8000/api/accounts/create
 Content-Type: application/x-www-form-urlencoded
 
-user_id=1&account_name=Mike%20Savings&account_type=Savings
+user_id=&account_name=Mike%20Savings&account_type=Savings
 
 ### Deposit to an Account
 
@@ -30,13 +50,48 @@ description=Save this for January
 POST http://localhost:8000/api/transactions/transfer
 Content-Type: application/json
 
+
 {
-  "accountNumber": "AC309661",
-  "transactionType": "TRANSFER",
+  "from_account": "AC862202",
+  "to_account": "AC162147",
   "amount": 55.36,
-  "description": "Transferring to checking account",
-  "toAccountNumber": "AC898671"
+  "transactionType": "TRANSFER",
+  "description": "Transferring to checking account"
+
 }
+
+### Transfer to an Account
+POST http://localhost:8000/api/transactions/transfer
+Content-Type: application/x-www-form-urlencoded
+
+from_account=AC862202
+to_account=AC162147
+amount=500.00
+description=Payment for Invoice #456
+
+
+### ping 
+
+
+
+POST http://localhost:8000/api/transactions/transfer
+Content-Type: application/json
+
+{
+  "fromAccount": "AC309661",
+  "toAccount": "AC898671",
+  "amount": 55.36,
+  "description": "Transferring to checking account"
+}
+### Transfer to an Account
+POST http://localhost:8000/api/transactions/transfer 
+Content-Type: application/x-www-form-urlencoded
+
+account_number=AC862202
+destination_account_number=AC162147
+amount=500.00
+description=Payment for Invoice #456
+
 
 
 ### Transfer to an Account

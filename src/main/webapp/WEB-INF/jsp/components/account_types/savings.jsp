@@ -18,6 +18,7 @@
             <img src="../images/chip.png" alt="">
         </div>
     </div>
+
     <div class="bottom">
         <div class="left">
             <small class="holder-name">Account Number</small>

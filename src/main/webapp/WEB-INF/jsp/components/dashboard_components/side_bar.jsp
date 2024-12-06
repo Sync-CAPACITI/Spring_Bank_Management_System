@@ -1,9 +1,13 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <div class="sidebar">
     <a href="/app/home" class="active">
         <span class="material-icons-sharp">dashboard</span>
         <h4>Dashboard</h4>
+         
     </a>
-    <a href="/transactions">
+    <a class="show_transactions" href="/app/transactionsList">
         <span class="material-icons-sharp">payment</span>
         <h4>Transactions</h4>
     </a>
@@ -17,7 +21,7 @@
             </span>
         <h4>Withdraw</h4>
     </a>
-    <a href="/transfer">
+    <a href="/app/transfer">
         <span class="material-symbols-outlined">
         </span>                    
         <h4>Transfer</h4>

@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Spring_Bank_Management_System.Entities.Account;
 
+
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Integer> {
+
 
     @Query(value = "SELECT * FROM accounts WHERE user_id = :user_id", nativeQuery = true)
     List<Account> getUserAccountsById(@Param("user_id") int userId);
@@ -23,12 +25,24 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     @Query(value = "SELECT sum(balance) FROM accounts WHERE user_id = :user_id", nativeQuery = true)
     BigDecimal getTotalBalance(@Param("user_id") int userId);
 
+    
+
+    
     @Query(value = "SELECT * FROM accounts WHERE account_number = :account_number", nativeQuery = true)
     Account findByAccountNumber(@Param("account_number") String accountNumber);
+
+    @Query(value = "SELECT * FROM accounts WHERE account_id = :account_id", nativeQuery = true)
+    Account findAccountById(@Param("account_id") String accountId);
+
+
 
     @Query(value = "SELECT balance FROM accounts WHERE user_id = :user_id AND account_id = :account_id", nativeQuery = true)
     double getAccountBalance(@Param("user_id") int userId, @Param("account_id") int accountId);
 
+
+    @Query(value = "SELECT account_number FROM accounts WHERE account_id = :account_id", nativeQuery = true)
+    String findAccountNumber(@Param("account_id") String accountId);
+    
     @Modifying
     @Query(value ="UPDATE accounts SET balance = :new_balance WHERE account_id = :account_id" , nativeQuery = true)
     @Transactional
@@ -52,9 +66,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     @Query("SELECT a FROM Account a WHERE a.userId = :user_id")
     List<Account> findByUserId(@Param("user_id") int userId);
 
-    @Query("SELECT a FROM Account a WHERE a.accountNumber = :account_number OR a.accountName = :account_name")
-    Account findByAccountNumberOrAccountName(@Param("account_number") String accountNumber, @Param("account_name") String accountName);
-    
+
     @Modifying
     @Query(value = "UPDATE accounts SET balance = balance + :amount WHERE account_id = :account_id", nativeQuery = true)
     @Transactional
@@ -63,7 +75,8 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     @Modifying
     @Query(value = "UPDATE accounts SET balance = balance - :amount WHERE account_id = :account_id", nativeQuery = true)
     @Transactional
-    void withdrawFromAccount(@Param("amount") BigDecimal amount, @Param("account_id") int accountId);
+    void withdrawFromAccount(@Param("amount") BigDecimal amount, 
+                            @Param("account_id") int accountId);
 
     @Modifying
     @Query(value = "UPDATE accounts SET balance = balance + :amount WHERE account_id = :account_id", nativeQuery = true)

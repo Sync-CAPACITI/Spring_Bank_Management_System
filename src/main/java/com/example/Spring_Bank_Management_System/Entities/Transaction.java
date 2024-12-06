@@ -13,17 +13,32 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transaction_id;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false) // Maps to Account entity
+    private Account account;
+ 
+ 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id") 
+    private User user; 
     
-    @Column(name = "account_id", nullable = false) 
-    private int account_id;
-    private int user_id;
     private String account_number;
     private String transaction_type; // "DEPOSIT", "WITHDRAWAL", or "TRANSFER"
     private BigDecimal amount;
     private LocalDateTime transaction_date = LocalDateTime.now();
     private String description;
+    
+
+    @Column(name = "destination_account_number", nullable = true) // For transfer transactions
+    private String destination_account_number;
 
 
+    
+    // Getters and setters remain the same
+    public void setDestinationAccountNumber(String destinationAccountNumber) {
+        this.destination_account_number = destinationAccountNumber;
+    }
 
     public void setAccountNumber(String accountNumber) {
         this.account_number = accountNumber;

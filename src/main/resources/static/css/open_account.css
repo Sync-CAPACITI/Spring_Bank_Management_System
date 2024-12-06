@@ -114,24 +114,21 @@
   .card-form__button {
     width: 100%;
     height: 55px;
-    background: #003554;;
+    background: #003554;
     border: none;
-    border-radius: 5px;
-    font-size: 22px;
+    border-radius: 0.5em;
+    font-size: 1.2em;
     font-weight: 500;
     font-family: "Source Sans Pro", sans-serif;
     box-shadow: 3px 10px 20px 0px rgba(35, 100, 210, 0.3);
     color: #fff;
     margin-top: 20px;
     cursor: pointer;
-
-  
+    transition: background-color 0.3s;
   }
-
-  @media screen and (max-width: 480px) {
-    .card-form__button, .card-form__button_back {
-      margin-top: 10px;
-    }
+  
+  .card-form__button:hover {
+    background: #005580;
   }
 
   .card-form__button_back{
@@ -147,4 +144,10 @@
     color: #fff;
     margin-top: 20px;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 480px) {
+    .card-form__button {
+      margin-top: 10px;
+    }
   }

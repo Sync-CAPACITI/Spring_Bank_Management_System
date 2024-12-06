@@ -26,7 +26,7 @@ public class IndexController {
     public ModelAndView getError(){
         ModelAndView getErrorPage = new ModelAndView("error");
         getErrorPage.addObject("PageTitle", "Errors");
-        System.out.println("In Error Page Controller");
+        System.out.println("This when we get an error");
         return getErrorPage;
     }
 
