@@ -1,0 +1,153 @@
+
+.wrapper {
+  margin-top: 50px;
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  
+  background-color: #f1f1fb;
+  padding: 3em;        
+  border-radius: 1em;
+  perspective: 800px;
+  
+  box-shadow: inset -0.42px 1.96px 2.37px -0.30px rgba(0, 0, 0, 0.15),
+              inset 0.62px -2.93px 2.37px -0.30px rgba(0, 0, 0, 0.3),
+              -1.25px 5.87px 1.78px -0.89px rgba(0, 0, 0, 0.6);
+  width: auto;
+  height: auto; 
+  max-width: 100%; 
+  max-height: 100%; 
+}
+
+
+  .header{
+    margin-top: 3rem;
+    color: #003554;
+  }
+  .credit-card {
+    position: relative;
+    width: 350px;
+    height: 220px;
+    margin: auto;
+    transform-style: preserve-3d;
+    transition: 0.3s;
+  }
+  .card-front,
+  .card-back {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    background: #003554;
+    border-radius: 1em;
+    backface-visibility: hidden;
+  }
+  .card-front {
+    padding: 2em 1em;
+  }
+  .branding {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .branding img {
+    width: 50px;
+    height: auto;
+  }
+  .card-back {
+    position: absolute;
+    transform: rotateY(180deg);
+  }
+  .card-number {
+    color: #ffffff;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+    margin-top: 3em;
+  }
+  .details {
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5em;
+    font-size: 0.8em;
+  }
+  .details span {
+    display: block;
+  }
+  .details #card-holder-name {
+    text-transform: uppercase;
+  }
+
+  form {
+    margin-top: 2em;
+  }
+  label,
+  input {
+    display: block;
+  }
+  label {
+    margin-bottom: 0.5em;
+    font-weight: 600;
+  }
+  
+  label {
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: #003554;;
+  }
+  input {
+    width: 100%;
+    border: 1px solid #003554;;
+    padding: 1em 0.5em;
+    border-radius: 0.5em;
+  }
+  input:not(:last-child) {
+    margin-bottom: 1em;
+  }
+  form .date-cvv {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .card-form__button {
+    width: 100%;
+    height: 55px;
+    background: #003554;
+    border: none;
+    border-radius: 0.5em;
+    font-size: 1.2em;
+    font-weight: 500;
+    font-family: "Source Sans Pro", sans-serif;
+    box-shadow: 3px 10px 20px 0px rgba(35, 100, 210, 0.3);
+    color: #fff;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .card-form__button:hover {
+    background: #005580;
+  }
+
+  .card-form__button_back{
+    width: 100%;
+    height: 55px;
+    background: #003554;
+    border: none;
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: 500;
+    font-family: "Source Sans Pro", sans-serif;
+    box-shadow: 3px 10px 20px 0px rgba(235, 15, 15, 0.3);
+    color: #fff;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 480px) {
+    .card-form__button {
+      margin-top: 10px;
+    }
+  }

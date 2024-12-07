@@ -1,0 +1,16 @@
+# Get Balance for Account1
+GET http://localhost:8080/api/accounts/account1/balance
+
+### Get Balance for Account2
+GET http://localhost:8080/api/accounts/account2/balance
+
+###
+POST http://localhost:8000/transfer
+Content-Type: application/x-www-form-urlencoded
+
+transfer_from=account1&transfer_to=account2&transfer_amount=500.00
+
+
+
+### Request to Perform a Transfer
+ GET http://localhost:8000/transfer
