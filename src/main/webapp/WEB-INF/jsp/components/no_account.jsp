@@ -1,5 +1,5 @@
 <div class="header">
-    <h1>Welcome <span>${user.first_name} ${user.last_name}</span></h1>
+    <h1>Welcome <span>${user.firstName} ${user.lastName}</span></h1>
 </div>
 
 <div class="info">

@@ -1,16 +1,119 @@
-# Get Balance for Account1
-GET http://localhost:8080/api/accounts/account1/balance
 
-### Get Balance for Account2
-GET http://localhost:8080/api/accounts/account2/balance
+### Fetch All Accounts
+GET http://localhost:8000/api/accounts
 
-###
-POST http://localhost:8000/transfer
+
+
+### Log in 
+POST http://localhost:8000/login
 Content-Type: application/x-www-form-urlencoded
 
-transfer_from=account1&transfer_to=account2&transfer_amount=500.00
+email=sinawomngxuma@gmail.com&password=admin&_token=fd696a2e-bc52-40a9-b5b2-076e55f21b3a
+
+
+### Fetch Transactions for a Specific User
+GET http://localhost:8000/api/transactions/transactionsList/4
+Content-Type: application/json
+
+
+### Transfer Request
+POST http://localhost:8000/api/transactions/transfer
+Content-Type: application/x-www-form-urlencoded
+
+from_account=AC862202&to_account=AC162147&amount=1000.00&description=Transfer%20for%20services
+
+
+### Acount creation 
+
+POST http://localhost:8000/api/accounts/create
+Content-Type: application/x-www-form-urlencoded
+
+user_id=&account_name=Mike%20Savings&account_type=Credit
+
+### Deposit to an Account
+
+POST http://localhost:8000/api/transactions/deposit
+Content-Type: application/x-www-form-urlencoded
+
+account_number=AC862202&amount=8845.36&description=Save this for January
+
+
+POST http://localhost:8000/api/transactions/deposit
+Content-Type: application/x-www-form-urlencoded
+
+account_number=AC123456
+amount=5845.36
+description=Save this for January
+
+
+### Transfer to an Account
+POST http://localhost:8000/api/transactions/transfer
+Content-Type: application/json
+
+
+{
+  "from_account": "AC862202",
+  "to_account": "AC162147",
+  "amount": 55.36,
+  "transactionType": "TRANSFER",
+  "description": "Transferring to checking account"
+
+}
+
+### Transfer to an Account
+POST http://localhost:8000/api/transactions/transfer
+Content-Type: application/x-www-form-urlencoded
+
+from_account=AC862202
+to_account=AC162147
+amount=500.00
+description=Payment for Invoice #456
+
+
+### ping 
 
 
 
-### Request to Perform a Transfer
- GET http://localhost:8000/transfer
+POST http://localhost:8000/api/transactions/transfer
+Content-Type: application/json
+
+{
+  "fromAccount": "AC309661",
+  "toAccount": "AC898671",
+  "amount": 55.36,
+  "description": "Transferring to checking account"
+}
+### Transfer to an Account
+POST http://localhost:8000/api/transactions/transfer 
+Content-Type: application/x-www-form-urlencoded
+
+account_number=AC862202
+destination_account_number=AC162147
+amount=500.00
+description=Payment for Invoice #456
+
+
+
+### Transfer to an Account
+POST http://localhost:8000/api/transactions/transfer
+Content-Type: application/x-www-form-urlencoded
+
+account_number=AC123456
+transaction_type=TRANSFER
+amount=5845.36
+description=transferring to checking account
+to_account_number=AC548755
+
+
+
+### Withdraw from an Account
+POST http://localhost:8000/api/transactions/withdraw
+Content-Type: application/json
+
+{
+  "accountNumber": "AC123456",
+  "transactionType": "WITHDRAWAL",
+  "amount": 45.36,
+  "description": "Withdraw from my savings account"
+}
+

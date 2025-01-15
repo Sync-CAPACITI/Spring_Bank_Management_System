@@ -67,7 +67,7 @@ public class TransactionController {
                 return "redirect:/app/home";
             }
             String account_number = accountRepository.findAccountNumber(accountId);
-          
+      
             account.setBalance(account.getBalance().add(amount));
             accountRepository.save(account);
     
@@ -203,7 +203,7 @@ public class TransactionController {
             destinationAccount.setBalance(destinationAccount.getBalance().add(amount));
             accountRepository.save(sourceAccount);
             accountRepository.save(destinationAccount);
-    
+             
             // Create debit transaction
             Transaction debitTransaction = new Transaction();
             debitTransaction.setAccount(sourceAccount);
@@ -255,7 +255,7 @@ public class TransactionController {
         }
 
         // Validate session user
-        if (sessionUser == null || sessionUser.getUser_id() != userId) {
+        if (sessionUser == null || sessionUser.getUserId() != userId) {
             throw new SecurityException("Unauthorized access or user not logged in.");
         }
     

@@ -35,7 +35,24 @@ public class Transaction {
 
 
     
-    // Getters and setters remain the same
+    // Getters and setters 
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Account getAccount() {
+        return this.account;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
     public void setDestinationAccountNumber(String destinationAccountNumber) {
         this.destination_account_number = destinationAccountNumber;
     }

@@ -69,8 +69,8 @@ public class RegisterController {
         String hashed_password = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
     
         // Register the user in the database
-        userRepository.registerUser(user.getFirst_name(), user.getLast_name(), user.getEmail(), 
-                                    user.getId_num(), hashed_password, token, code);
+        userRepository.registerUser(user.getFirstName(), user.getLastName(), user.getEmail(), 
+                                    user.getIdNum(), hashed_password, token, code);
     
         // Send the email verification message
         MailMessenger.htmlEmailMessenger("noreply9823@gmail.com", user.getEmail(), "Verify Account", emailBody);

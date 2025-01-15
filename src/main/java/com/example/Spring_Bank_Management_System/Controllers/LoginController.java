@@ -78,24 +78,36 @@ public class LoginController {
 
         // Proceed to log the user in:
         User user = userRepository.getUserDetails(getEmailInDatabase);
+        
+        System.out.println("this is supposed to user id "+ user.getUserId());
 
-        // Fetch the user's accounts:
-        List<Account> userAccounts = accountRepository.findByUserId(user.getUser_id());
 
-        // Set session attributes:
-        session.setAttribute("user", user);
-        session.setAttribute("token", token);
-        session.setAttribute("authenticated", true);
-
-        // If user has accounts, add account details to the session:
-        if (!userAccounts.isEmpty()) {
-            session.setAttribute("userAccounts", userAccounts);
-            session.setAttribute("accountType", userAccounts.get(0).getAccountType()); // Example: get the first account type
+        
+         
+        if (!(user.getUserId() <= 0) ){
+            // Fetch the user's accounts using the userId
+            List<Account> userAccounts = accountRepository.findByUserId(user.getUserId());
+        
+            // Set session attributes
+            session.setAttribute("user", user);
+            session.setAttribute("token", token);
+            session.setAttribute("authenticated", true);
+        
+            // If user has accounts, add account details to the session
+            if (!userAccounts.isEmpty()) {
+                session.setAttribute("userAccounts", userAccounts);
+                session.setAttribute("accountType", userAccounts.get(0).getAccountType());
+            } else {
+                session.setAttribute("userAccounts", null);
+                session.setAttribute("accountType", null);
+            }
         } else {
+            // Handle case where userId is invalid or null
             session.setAttribute("userAccounts", null);
             session.setAttribute("accountType", null);
+            System.out.println("User ID is null or invalid");
         }
-
+        
         return "redirect:/app/home";
     }
     // End Of Authentication Method.

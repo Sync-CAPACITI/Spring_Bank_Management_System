@@ -45,7 +45,7 @@ public class RestAccountCreationController {
             User user = (User)session.getAttribute("user");
             
             
-            accountRepository.createBankAccount(user.getUser_id(), bankAccountNumber, accountName, accountType, BigDecimal.ZERO, now);
+            accountRepository.createBankAccount(user.getUserId(), bankAccountNumber, accountName, accountType, BigDecimal.ZERO, now);
 
                     // CHECK FOR EMPTY STRINGS:
             if(accountName.isEmpty() || accountType.isEmpty()){

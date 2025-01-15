@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,10 +17,10 @@ import com.example.Spring_Bank_Management_System.Entities.Account;
 
 
 @Repository
-public interface AccountRepository extends CrudRepository<Account, Integer> {
+public interface AccountRepository extends JpaRepository<Account, Integer> {
 
 
-    @Query(value = "SELECT * FROM accounts WHERE user_id = :user_id", nativeQuery = true)
+    @Query(value = "SELECT * FROM accounts WHERE user_id = :userId", nativeQuery = true)
     List<Account> getUserAccountsById(@Param("user_id") int userId);
 
     @Query(value = "SELECT sum(balance) FROM accounts WHERE user_id = :user_id", nativeQuery = true)
@@ -63,8 +64,8 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
                            @Param("created_at") LocalDateTime createdAt);
     
 
-    @Query("SELECT a FROM Account a WHERE a.userId = :user_id")
-    List<Account> findByUserId(@Param("user_id") int userId);
+    @Query("SELECT a FROM Account a WHERE a.userId = :userId")
+    List<Account> findByUserId(@Param("userId") int userId);
 
 
     @Modifying

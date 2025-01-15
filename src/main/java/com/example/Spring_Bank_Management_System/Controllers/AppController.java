@@ -34,6 +34,7 @@ public class AppController {
     @Autowired
     private TransactionRepository transactionRepository;
 
+
     User user;
 
     @GetMapping("/home")
@@ -47,18 +48,22 @@ public class AppController {
     System.out.println("Logged-in user: " + user);
 
         // Get The Accounts Of The Logged In User:
-        List<Account> getUserAccounts = accountRepository.getUserAccountsById(user.getUser_id());
+        List<Account> getUserAccounts = accountRepository.findByUserId(user.getUserId());
+        // List<User> userDetails = userRepository.getUserDetails(user.getEmail());
 
         // Debugging: Print the accounts list
         if (getUserAccounts.isEmpty()) {
-            System.out.println("No accounts found for user ID: " + user.getUser_id());
+            System.out.println("No accounts found for user ID: " + user.getUserId());
         } else {
             System.out.println("Found accounts: " + getUserAccounts.size());
+   
         }
 
         // Set Objects:
+        System.out.println("User firstName: " + user.getFirstName());
+
         getDashboardPage.addObject("userAccounts", getUserAccounts);
-        
+        getDashboardPage.addObject("user", user);
         return getDashboardPage;
     }
 
@@ -71,13 +76,13 @@ public class AppController {
 
         // Get The Accounts Of The Logged In User:
 
-    List<Account> getUserAccounts = accountRepository.getUserAccountsById(user.getUser_id());
+    List<Account> getUserAccounts = accountRepository.findByUserId(user.getUserId());
 
       // Ensure the accounts list is not empty
     if (getUserAccounts != null && !getUserAccounts.isEmpty()) {
-        getIndexPage.addObject("userAccounts", getUserAccounts);
+        getIndexPage.addObject("getUserAccounts", getUserAccounts);
     } else {
-        getIndexPage.addObject("userAccounts", new ArrayList<>()); // In case the list is empty
+        getIndexPage.addObject("getUserAccounts", new ArrayList<>()); // In case the list is empty
     }
 
     return getIndexPage;
@@ -93,7 +98,7 @@ public class AppController {
         ModelAndView getIndexPage = new ModelAndView("transactionsList");
         user = (User) session.getAttribute("user"); 
 
-        List<Account> getUserAccounts = accountRepository.getUserAccountsById(user.getUser_id());
+        List<Account> getUserAccounts = accountRepository.findByUserId(user.getUserId());
         List<Transaction> transactions = transactionRepository.findByUser(user);
         // Ensure the accounts list is not empty
         if (getUserAccounts != null && !getUserAccounts.isEmpty()) {

@@ -3,18 +3,14 @@ package com.example.Spring_Bank_Management_System.Entities;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "accounts") // Matches the table name in the database
+@NoArgsConstructor
+@Table(name = "accounts")
 public class Account {
 
     @Id
@@ -42,4 +38,24 @@ public class Account {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance ) {
+        this.balance = balance;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void getAccountType(String accountType ) {
+        this.accountType = accountType;
+    }
+
+
+
 }
