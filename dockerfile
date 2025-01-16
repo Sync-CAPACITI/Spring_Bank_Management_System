@@ -1,20 +1,15 @@
-# Use an official Java runtime as a parent image
-FROM openjdk:17-jdk-slim
+FROM maven:3.8.5-openjdk-17 as build
+
+COPY . .
  
-# Set the working directory in the container
-WORKDIR /app
- 
-# Copy the Maven build file and source code
-COPY . /app
- 
-# Install Maven
-RUN apt-get update && apt-get install -y maven
- 
-# Build the application with Maven
-RUN mvn clean package
- 
-# Run the application
-ENTRYPOINT ["java", "-jar", "target/Spring_Bank_Management_System-0.0.1-SNAPSHOT.jar"]
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17.0.1-jdk-slim
+
+COPY --from=build /target/Spring_Bank_Management_System-0.0.1-SNAPSHOT.jar Spring_Bank_Management_System.jar
  
 # Expose the port the app runs on
 EXPOSE 8080
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "Spring_Bank_Management_System.jar"]
