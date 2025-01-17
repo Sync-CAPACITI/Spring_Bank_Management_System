@@ -102,6 +102,9 @@
 
     <!-- calendar js -->
      <script src="../js/calenda.js"></script>
+
+     <!-- message js-->
+     <script src="/js/messages.js"></script>
     
 </body>
 </html>

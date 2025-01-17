@@ -109,5 +109,8 @@
  
     </div>
     <script src="js/login.js"></script>
+
+    <!-- message js-->
+    <script src="/js/messages.js"></script>
   </body>
 </html>
