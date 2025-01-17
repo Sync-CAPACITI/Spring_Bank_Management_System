@@ -141,7 +141,7 @@
         <!-- aside end -->
          
         <section class="middle">
-              <p>Showing Transactions for ${userAccounts[0].accountName}  </p>
+              <p>Showing Transactions for ${user.firstName}  ${user.lastName}</p>
             
             
                 <table id="myTable" class="display" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
