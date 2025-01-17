@@ -40,21 +40,21 @@
             <!-- End Of Display Message -->
 
             <form:form action="/register"  method="POST" modelAttribute="registerUser">
-            <div class="input-box animation" >
-                    <form:input type="text" path="first_name" required="true" />
-                    <label> First name </label>
+
+
+                <div class="input-box animation">
+                    <form:input type="text" path="firstName" required="true" />
+                    <label>First Name</label>
                     <i class="fa-duotone fa-light fa-input-text"></i>
-                    <form:errors path="first_name" class="text-white bg-danger" />                        
+                    <form:errors path="firstName" class="text-white bg-danger" />
                 </div>
 
                 <div class="input-box animation" >
-                    <form:input type="text" path="last_name"  required="true" />
-                    <label>Last name</label>
+                    <form:input type="text" path="lastName"  required="true" />
+                    <label>Last Name</label>
                     <i class="fa-duotone fa-light fa-input-text"></i>
-                    <form:errors path="last_name" class="text-white bg-danger" />
+                    <form:errors path="lastName" class="text-white bg-danger" />
                 </div>
-
-
 
             <div class="input-box animation" >
                 <form:input type="email" path="email"  required="true" />
@@ -63,13 +63,11 @@
                 <form:errors path="email" class="text-white bg-danger" />
             </div>
 
-
             <div class="input-box animation" >
-                <form:input type="number" path="id_num"  required="true" />
+                <form:input type="number" path="idNum"  required="true" />
                 <label>ID Number</label>
                 <i class="fa-solid fa-book"></i>
-                <form:errors path="id_num" class="text-white bg-danger" />                    
-
+                <form:errors path="idNum" class="text-white bg-danger" />                    
 
             </div>
 

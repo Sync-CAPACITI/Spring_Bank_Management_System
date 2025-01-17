@@ -1472,3 +1472,35 @@ Caused by: java.lang.AssertionError
 	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1893)
 	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:922)
 	... 19 more
+2025-01-17 09:23:21.944536+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]FOR USER where user_id = 6"; expected "identifier"; SQL statement:
+DELETE FOR USER where user_id = 6 [42001-232]
+2025-01-17 09:23:34.616950+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FOR USER where user_id = 6"; expected "identifier"; SQL statement:
+DELETE * FOR USER where user_id = 6 [42001-232]
+2025-01-17 09:23:36.181174+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FOR USER where user_id = 6"; expected "identifier"; SQL statement:
+DELETE * FOR USER where user_id = 6 [42001-232]
+2025-01-17 09:23:42.317588+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FOR USER where user_id = 6"; expected "identifier"; SQL statement:
+DELETE * FOR USER where user_id = 6 [42001-232]
+2025-01-17 09:23:42.521870+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FOR USER where user_id = 6"; expected "identifier"; SQL statement:
+DELETE * FOR USER where user_id = 6 [42001-232]
+2025-01-17 09:24:20.751784+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FOR USERS where user_id = 6"; expected "identifier"; SQL statement:
+DELETE * FOR USERS where user_id = 6 [42001-232]
+2025-01-17 09:24:26.961097+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE  [*]FOR USERS where user_id = 6"; expected "identifier"; SQL statement:
+DELETE  FOR USERS where user_id = 6 [42001-232]
+2025-01-17 09:24:28.028870+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE  [*]FOR USERS where user_id = 6"; expected "identifier"; SQL statement:
+DELETE  FOR USERS where user_id = 6 [42001-232]
+2025-01-17 09:25:22.674092+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select * from users\000d\000adelete [*]from users where id_num = '2005115446085'"; SQL statement:
+select * from users
+delete from users where id_num = '2005115446085' [42000-232]
+2025-01-17 09:26:04.782560+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select * from users\000d\000adelete [*]from users where email= 'admin@gmail.com'"; SQL statement:
+select * from users
+delete from users where email= 'admin@gmail.com' [42000-232]
