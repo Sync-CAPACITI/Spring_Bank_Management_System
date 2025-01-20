@@ -1,4 +1,6 @@
 package com.example.Spring_Bank_Management_System.repository;
+import java.time.LocalDateTime;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -45,15 +47,18 @@ public interface UserRepository  extends CrudRepository<User, Integer> {
     void verifyAccount(@Param("token")String token, @Param("code") String code);
 
     @Modifying
-    @Query(value = "UPDATE Users SET reset_token = :resetToken WHERE email = :email", nativeQuery = true)
+    @Query("UPDATE User u SET u.resetToken = :resetToken, u.resetTokenExpiry = :expiry WHERE u.email = :email")
     @Transactional
-    void updateResetToken(@Param("email") String email, @Param("resetToken") String resetToken);
+    void updateResetToken(@Param("email") String email, @Param("token") String resetToken, @Param("expiry") LocalDateTime expiry);
+
 
     @Modifying
     @Query(value = "UPDATE Users SET password = :password WHERE token = :token", nativeQuery = true)
     @Transactional
     void updatePasswordWithToken(@Param("token") String token, @Param("password") String password);
-
+    
+    @Query(value = "SELECT * FROM Users WHERE reset_token = :token", nativeQuery = true)
+    User findUserByToken(@Param("token") String token);
 
     @Query(value = "SELECT token FROM Users WHERE token = :token" , nativeQuery = true)
     String checkToken(@Param("token")String token);
