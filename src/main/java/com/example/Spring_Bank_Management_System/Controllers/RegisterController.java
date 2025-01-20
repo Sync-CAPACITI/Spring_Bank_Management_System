@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.Spring_Bank_Management_System.helpers.HTML;
 import com.example.Spring_Bank_Management_System.Entities.User;
@@ -39,21 +40,21 @@ public class RegisterController {
     }
     
     @PostMapping("/register")
-    public ModelAndView register(@Valid @ModelAttribute("registerUser") User user, 
+    public String register(@Valid @ModelAttribute("registerUser") User user, 
                                  BindingResult result,
-                                 @RequestParam String confirm_password) throws MessagingException {
-    
-        ModelAndView registrationPage = new ModelAndView("register");
+                                 @RequestParam String confirm_password,
+                                 RedirectAttributes redirectAttributes) throws MessagingException {
     
         // Check for form validation errors
         if (result.hasErrors()) {
-            return registrationPage;
+            redirectAttributes.addFlashAttribute("error", "Account Registration Failed!");
+            return "redirect:/register";
         }
     
         // Check for password mismatch
         if (!user.getPassword().equals(confirm_password)) {
-            registrationPage.addObject("passwordMisMatch", "Passwords do not match");
-            return registrationPage;
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match!");
+            return "redirect:/register";
         }
     
         // Token generation and email logic
@@ -77,8 +78,8 @@ public class RegisterController {
     
         // Success message
         String successMessage = "Account Registered Successfully! Please Check your Email and Verify your Account.";
-        registrationPage.addObject("success", successMessage);
-        return registrationPage;
+        redirectAttributes.addFlashAttribute("error", successMessage);
+        return "redirect:/login";
     }
     
     

@@ -168,8 +168,6 @@ public class TransactionController {
                            @RequestParam("description") String description,
                            HttpSession session,
                            RedirectAttributes redirectAttributes) {
-        // Init Error Message Value:
-        String errorMessage;
 
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             redirectAttributes.addFlashAttribute("error", "Amount must be greater than zero");

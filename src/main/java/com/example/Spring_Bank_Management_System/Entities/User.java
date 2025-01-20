@@ -2,12 +2,8 @@ package com.example.Spring_Bank_Management_System.Entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,12 +1,14 @@
 package com.example.Spring_Bank_Management_System.helpers;
 
+import java.time.Year;
 
 public class HTML {
 
     public static String htmlEmailTemplate(String token, int code){
 
+        int currentYear = Year.now().getValue();
         // Verify Account URL:
-        String url = "http://127.0.0.1:8000/verify?token=" + token +"&code=" + code;
+        String url = "https://bank-system-enre.onrender.com/verify?token=" + token +"&code=" + code;
 
         String emailTemplate = "<!DOCTYPE html>\n" +
                 "<html lang='en'>\n" +
@@ -109,7 +111,7 @@ public class HTML {
                 "\n" +
                 "        <!-- Copy Right Wrapper -->\n" +
                 "        <div class='copy-right'>\n" +
-                "            &copy; Copy Right 2024. All Rights Reserved.\n" +
+                "            &copy; Copy Right " + currentYear + ". All Rights Reserved.\n" +
                 "        </div>\n" +
                 "        <!-- End Of Copy Right Wrapper -->\n" +
                 "\n" +
