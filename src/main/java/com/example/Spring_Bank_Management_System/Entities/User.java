@@ -18,9 +18,6 @@ public class User {
     @Column(name = "user_id")
     private int userId;
 
-
-
-
     @NotEmpty(message = "The First name field cannot be empty")
     @Size(min = 3, message = "The First name field must be greater than 3 characters")
     @Column(name = "first_name", nullable = false, length = 50)
@@ -43,6 +40,9 @@ public class User {
     @NotNull(message = "Password cannot be empty")
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name ="reset_token")
+    private String resetToken;
 
     private String token;
     private String code;

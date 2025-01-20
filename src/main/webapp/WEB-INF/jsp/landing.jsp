@@ -34,10 +34,10 @@
             at your fingertips</p>
             <br>
 
-            <div class="play-button">
+            <!-- <div class="play-button">
                 <span class="play">Play Video</span>
                 <i class="fas fa-play" onclick="click()"></i>
-              </div>
+              </div> -->
           </div>
         <div class="hero-div">
             <img src="../images/illustration-intro.png" alt="">

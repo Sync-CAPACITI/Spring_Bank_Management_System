@@ -72,17 +72,17 @@
             </div>
 
             <div class="input-box animation" >
-                <form:input type="password" path="password"  required="true" />
+                <form:input type="password" path="password" id="password"  required="true" />
                 <label>Password</label>
-                <i class="bx bxs-lock-alt"></i>
+                <i id="toggle-password" class='bx bx-hide'></i>
                 <form:errors path="password" class="text-white bg-danger" />
 
             </div>
 
             <div class="input-box animation">
-                <input type="password" name="confirm_password" />
+                <input type="password" name="confirm_password" id="confirm-password" />
                 <label>Confirm Password</label>
-                <i class="bx bxs-lock-alt"></i>
+                <i id="toggle-confirm-password" class='bx bx-hide'></i>
                 <small class="text-white bg-danger">${confirm_pass}</small>                        
 
             </div>
@@ -109,6 +109,8 @@
  
     </div>
     <script src="js/login.js"></script>
+
+    <script src="js/password.js"></script>
 
     <!-- message js-->
     <script src="/js/messages.js"></script>

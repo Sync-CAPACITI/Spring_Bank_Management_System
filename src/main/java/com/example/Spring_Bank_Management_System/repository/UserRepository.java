@@ -23,6 +23,9 @@ public interface UserRepository  extends CrudRepository<User, Integer> {
     @Query(value = "SELECT * FROM Users WHERE email = :email", nativeQuery = true)
     User getUserDetails(@Param("email")String email);
 
+    @Query(value = "SELECT * FROM Users WHERE reset_token = :resetToken", nativeQuery = true)
+    User findByResetToken(@Param("resetToken") String resetToken);
+
     @Modifying
     @Query(value = "INSERT INTO Users (first_name, last_name, email, id_num, password, token, code) VALUES" +
             "(:first_name, :last_name, :email, :id_num, :password, :token, :code)", nativeQuery = true )
@@ -40,6 +43,17 @@ public interface UserRepository  extends CrudRepository<User, Integer> {
             "token= :token AND code= :code", nativeQuery = true)
     @Transactional
     void verifyAccount(@Param("token")String token, @Param("code") String code);
+
+    @Modifying
+    @Query(value = "UPDATE Users SET reset_token = :resetToken WHERE email = :email", nativeQuery = true)
+    @Transactional
+    void updateResetToken(@Param("email") String email, @Param("resetToken") String resetToken);
+
+    @Modifying
+    @Query(value = "UPDATE Users SET password = :password WHERE token = :token", nativeQuery = true)
+    @Transactional
+    void updatePasswordWithToken(@Param("token") String token, @Param("password") String password);
+
 
     @Query(value = "SELECT token FROM Users WHERE token = :token" , nativeQuery = true)
     String checkToken(@Param("token")String token);
