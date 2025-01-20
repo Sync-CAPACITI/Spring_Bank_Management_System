@@ -12,6 +12,8 @@
 
     <!-- material icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+     <!-- PNG version for higher resolution -->
+     <link rel="icon" href="images/bank.png" type="image/png">
     <!-- google fonts poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

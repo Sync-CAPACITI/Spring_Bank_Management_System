@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title> Next-Gen Banking</title>
     <link rel="stylesheet" href="css/landing.css">
+    <!-- PNG version for higher resolution -->
+    <link rel="icon" href="images/bank.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>

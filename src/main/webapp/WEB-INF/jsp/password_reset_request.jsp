@@ -15,6 +15,8 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+     <!-- PNG version for higher resolution -->
+     <link rel="icon" href="images/bank.png" type="image/png">
   </head>
 
   <body>

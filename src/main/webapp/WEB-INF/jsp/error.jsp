@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="css/fontawesome/css/all.css">
+     <!-- PNG version for higher resolution -->
+     <link rel="icon" href="images/bank.png" type="image/png">
     <style>
         *{
             box-sizing: border-box;

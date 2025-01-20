@@ -18,6 +18,8 @@
   
       <!-- Dasboards style -->
        <link rel="stylesheet" href="../css/open_account.css">
+        <!-- PNG version for higher resolution -->
+        <link rel="icon" href="images/bank.png" type="image/png">
        <link rel="stylesheet" href="../css/universal.css">
   
        <!--clock ui-->

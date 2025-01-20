@@ -23,10 +23,8 @@
      <link rel="stylesheet" href="../css/open_account.css">
      <!--clock ui-->
      <link rel="stylesheet" href="../css/clock.css">
-
-
-
-
+      <!-- PNG version for higher resolution -->
+    <link rel="icon" href="images/bank.png" type="image/png">
      <!-- calenda css -->
      <link rel="stylesheet" href="../css/calenda.css">
      
