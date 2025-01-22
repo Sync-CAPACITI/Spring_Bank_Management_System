@@ -215,8 +215,8 @@ public class HTML {
                 "\n" +
                 "        <!-- Welcome Text -->\n" +
                 "        <p class='welcome-text'>\n" +
-                "            We received a request to reset your password. Please click the button below to reset it.\n" +
-                "        </p>\n" +
+                "            We received a request to reset your password. You Have 5 minutes to reset your password. Please click the button below to reset it.\n" +
+                "        </p>\n" + 
                 "        <!-- End of Welcome Text -->\n" +
                 "        <br>\n" +
                 "        <br>\n" +

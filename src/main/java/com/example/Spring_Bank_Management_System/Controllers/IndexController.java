@@ -36,15 +36,15 @@ public class IndexController {
         ModelAndView getVerifyPage;
 
         // Get Token In Database:
-        String dbToken = userRepository.checkToken(token);
+        String dbToken = userRepository.verifyToken(token);
 
-        // // Check If Token Is Valid:
+        // Check If Token Is Valid:
         if(dbToken == null){
             getVerifyPage  = new ModelAndView("error");
             getVerifyPage.addObject("error", "This Session Has Expired");
             return  getVerifyPage;
         }
-        // // End Of Check If Token Is Valid.
+        // End Of Check If Token Is Valid.
 
         // Update and Verify Account:
         userRepository.verifyAccount(token, code);

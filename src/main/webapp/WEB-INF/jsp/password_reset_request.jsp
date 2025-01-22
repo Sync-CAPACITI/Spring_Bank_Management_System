@@ -57,7 +57,7 @@
                 <i class="bx bxs-user"></i>
             </div>
             <div class="form-group col">
-              <input type="hidden" name="_token" value="${token}"/>
+              <input type="hidden" name="token" value="${token}"/>
           </div>
 
             <button type="submit" class="btn animation">Request Password Reset</button>

@@ -41,11 +41,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name ="reset_token")
-    private String resetToken;
-
-    @Column(name = "reset_token_expiry")
-    private LocalDateTime resetTokenExpiry;
+    
 
     private String token;
     private String code;
@@ -53,6 +49,28 @@ public class User {
     private LocalDate verifiedAt;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
+
+    private String resetToken;
+    
+    @Column(name = "token_expiration_time")
+    private LocalDateTime tokenExpirationTime;
+
+    // Getters and setters
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public LocalDateTime getTokenExpirationTime() {
+        return tokenExpirationTime;
+    }
+
+    public void setTokenExpirationTime(LocalDateTime tokenExpirationTime) {
+        this.tokenExpirationTime = tokenExpirationTime;
+    }
 
 
 
