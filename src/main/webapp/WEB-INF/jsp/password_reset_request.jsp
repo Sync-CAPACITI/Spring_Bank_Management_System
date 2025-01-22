@@ -61,6 +61,13 @@
           </div>
 
             <button type="submit" class="btn animation">Request Password Reset</button>
+            <div class="logreg-link animation" style="--i:3; --j:24;">
+                 <!-- Forgot Password Link -->
+            <p>
+                <a href="/login" class="forgot-password-link animation" style="--i:5; --j:26;">Back to Login</a>
+            </p>
+            </div>
+           
             </form>
         </div>
 
