@@ -56,6 +56,14 @@ public class RegisterController {
             redirectAttributes.addFlashAttribute("error", "Passwords do not match!");
             return "redirect:/register";
         }
+
+         User userExist = userRepository.findUserByEmail(user.getEmail());
+        // Check if user exists in the database
+        if ( userExist!= null){
+            System.out.println("This when we get an error - Email already exists");
+            redirectAttributes.addFlashAttribute("error", "Email address already exists. User cannot be registered.");
+            return "redirect:/register";
+        }
     
         // Token generation and email logic
         String token = Token.generateToken();

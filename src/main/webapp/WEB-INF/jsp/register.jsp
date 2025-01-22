@@ -40,6 +40,14 @@
                 </div>
             </c:if>
             <!-- End Of Display Message -->
+             
+             <!-- Display Message -->
+            <c:if test="${requestScope.error != null}">
+                <div class="alert alert-danger text-center border border-danger">
+                    <b>${requestScope.error}</b>
+                </div>
+            </c:if>
+            <!-- End Of Display Message -->
 
             <form:form action="/register"  method="POST" modelAttribute="registerUser">
 
