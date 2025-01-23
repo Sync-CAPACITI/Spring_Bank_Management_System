@@ -47,21 +47,23 @@ public class RegisterController {
     
         // Check for form validation errors
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("error", "Account Registration Failed!");
+            redirectAttributes.addFlashAttribute("toastMessage", "Account Registration Failed!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/register";
         }
     
         // Check for password mismatch
         if (!user.getPassword().equals(confirm_password)) {
-            redirectAttributes.addFlashAttribute("error", "Passwords do not match!");
+            redirectAttributes.addFlashAttribute("toastMessage", "Passwords do not match!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/register";
         }
 
          User userExist = userRepository.findUserByEmail(user.getEmail());
         // Check if user exists in the database
         if ( userExist!= null){
-            System.out.println("This when we get an error - Email already exists");
-            redirectAttributes.addFlashAttribute("error", "Email address already exists. User cannot be registered.");
+            redirectAttributes.addFlashAttribute("toastMessage", "Email address already exists. User cannot be registered.");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/register";
         }
     
@@ -86,7 +88,8 @@ public class RegisterController {
     
         // Success message
         String successMessage = "Account Registered Successfully! Please Check your Email and Verify your Account.";
-        redirectAttributes.addFlashAttribute("error", successMessage);
+        redirectAttributes.addFlashAttribute("toastMessage", successMessage);
+        redirectAttributes.addFlashAttribute("toastType", "success");
         return "redirect:/login";
     }
     

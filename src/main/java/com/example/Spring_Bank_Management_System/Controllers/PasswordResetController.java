@@ -44,43 +44,46 @@ public class PasswordResetController {
         // Check if the email exists in the database
         String userEmail = userRepository.getUserEmail(email);
         if (userEmail == null) {
-            redirectAttributes.addFlashAttribute("error", "Email not found, Users Does not exist.");
+            redirectAttributes.addFlashAttribute("toastMessage", "Email not found. User does not exist.");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/password_reset_request";
         }
 
         // Generate token for password reset
-    String token = Token.generateToken();
-    int code = new Random().nextInt(999999); // Generate a random code
+        String token = Token.generateToken();
+        int code = new Random().nextInt(999999); // Generate a random code
 
-    // Set expiration time (15 minutes from now)
-    LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(5);
+        // Set expiration time (15 minutes from now)
+        LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(5);
 
-    // Update the user's token and expiration time in the database 
-    userRepository.updateResetToken(email, expirationTime, token);
+        // Update the user's token and expiration time in the database 
+        userRepository.updateResetToken(email, expirationTime, token);
 
-    // Get the reset email body content with the token and code
-    String emailBody = HTML.passwordResetEmailTemplate(token, code);
+        // Get the reset email body content with the token and code
+        String emailBody = HTML.passwordResetEmailTemplate(token, code);
 
-    // Send the email with the reset link
-    MailMessenger.htmlEmailMessenger("noreply9823@gmail.com", email, "Password Reset Request", emailBody);
+        // Send the email with the reset link
+        MailMessenger.htmlEmailMessenger("noreply9823@gmail.com", email, "Password Reset Request", emailBody);
 
-    // Success message
-    redirectAttributes.addFlashAttribute("success", "A password reset link has been sent to your email.");
-    return "redirect:/login";
+        // Success message
+        redirectAttributes.addFlashAttribute("toastMessage", "A password reset link has been sent to your email.");
+        redirectAttributes.addFlashAttribute("toastType", "success");
+        return "redirect:/login";
     }
 
     @GetMapping("/password_reset")
-    public ModelAndView getPasswordResetPage(@RequestParam("token") String token, Model model) {
+    public String getPasswordResetPage(@RequestParam("token") String token, Model model,RedirectAttributes redirectAttributes) {
         // Validate the token
         String storedToken = userRepository.checkToken(token, LocalDateTime.now());
         if (storedToken == null) {
-            model.addAttribute("error", "Invalid or expired token.");
-            return new ModelAndView("password_reset");
+            redirectAttributes.addFlashAttribute("toastMessage", "Invalid or expired token.");
+        redirectAttributes.addFlashAttribute("toastType", "error");
+        return "redirect:/password_reset_request";
         }
 
         model.addAttribute("token", token);
         model.addAttribute("passwordResetForm", new PasswordResetForm());
-        return new ModelAndView("password_reset");
+        return "redirect:/password_reset";
     }
 
     
@@ -92,36 +95,40 @@ public class PasswordResetController {
                                     RedirectAttributes redirectAttributes) {
         // Check if form validation has errors
         if (result.hasErrors()) {
-            return "password_reset"; 
+            return "redirect:/password_reset"; 
         }
 
         // Validate password and confirmation match
         if (!form.getPassword().equals(form.getConfirmPassword())) {
-            redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
+            redirectAttributes.addFlashAttribute("toastMessage", "Passwords do not match.");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/password_reset?token=" + token;
         }
 
         // Retrieve the user by token and update their password
         User user = userRepository.findUserByToken(token);
         if (user == null) {
-            redirectAttributes.addFlashAttribute("error", "Invalid or expired token.");
+            redirectAttributes.addFlashAttribute("toastMessage", "Invalid or expired token.");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/password_reset?token=" + token;
         }
 
         // Hash the new password and update in the database
         String hashedPassword = BCrypt.hashpw(form.getPassword(), BCrypt.gensalt());
         // Attempt to update the password in the repository
-    int rowsUpdated = userRepository.updatePasswordWithToken(token, hashedPassword, LocalDateTime.now());
+        int rowsUpdated = userRepository.updatePasswordWithToken(token, hashedPassword, LocalDateTime.now());
 
-    if (rowsUpdated == 0) {
-        // No rows updated, meaning token is invalid or expired
-        redirectAttributes.addFlashAttribute("error", "Invalid or expired token.");
-        return "redirect:/password_reset?token=" + token;
-    }
+        if (rowsUpdated == 0) {
+            // No rows updated, meaning token is invalid or expired
+            redirectAttributes.addFlashAttribute("toastMessage", "Invalid or expired token.");
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            return "redirect:/password_reset?token=" + token;
+        }
 
-    // Success, password updated
-    redirectAttributes.addFlashAttribute("success", "Your password has been successfully reset.");
-    return "redirect:/login";
+        // Success, password updated
+        redirectAttributes.addFlashAttribute("toastMessage", "Your password has been successfully updated.");
+        redirectAttributes.addFlashAttribute("toastType", "success");
+        return "redirect:/login";
     }
 
 

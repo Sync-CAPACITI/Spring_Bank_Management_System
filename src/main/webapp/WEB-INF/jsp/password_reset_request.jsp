@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Request Password Reset</title>
     <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/toast.css" />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -19,7 +20,7 @@
      <link rel="icon" href="images/bank.png" type="image/png">
   </head>
 
-  <body>
+  <body data-toast-message="${toastMessage}" data-toast-type="${toastType}">
     <div class="wrapper">
         <span class="bg-animate"></span>
         <span class="bg-animate2"></span>
@@ -78,7 +79,9 @@
             </p>
         </div>
     </div>
+    <div id="toastBox"></div>
     <script src="js/login.js"></script>
+    <script src="js/toast.js"></script>
     <script src="js/password.js"></script>
 
     <!-- message js-->

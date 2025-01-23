@@ -1,9 +1,7 @@
 package com.example.Spring_Bank_Management_System.rest_controllers;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,39 +31,34 @@ public class RestAccountCreationController {
                                 RedirectAttributes redirectAttributes,
                                 HttpSession session) {
 
-
-        if (accountName == null || accountName.trim().isEmpty()) {
+        if (accountName == null || accountName.trim().isEmpty() || accountType == null || accountType.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("toastMessage", "Account name and type cannot be empty!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/app/home";
         }
-        if (accountType == null || accountType.trim().isEmpty()) {
 
-            return "redirect:/app/home";
-
-        }
         try {
             String bankAccountNumber = GenAccountNumber.generateAccountNumber();
             LocalDateTime now = LocalDateTime.now();
             User user = (User)session.getAttribute("user");
+
+            if (user == null) {
+                redirectAttributes.addFlashAttribute("toastMessage", "User session is invalid. Please log in again.");
+                redirectAttributes.addFlashAttribute("toastType", "error");
+                return "redirect:/login";
+            }
             
             
             accountRepository.createBankAccount(user.getUserId(), bankAccountNumber, accountName, accountType, BigDecimal.ZERO, now);
 
-                    // CHECK FOR EMPTY STRINGS:
-            if(accountName.isEmpty() || accountType.isEmpty()){
-                redirectAttributes.addFlashAttribute("error", "Account Holder Name and Type Cannot be Empty!");
-                return "redirect:/app/home";
-
-            }
-
-
-            redirectAttributes.addFlashAttribute("success", "Account Created Successfully!");
+            // Add success message
+            redirectAttributes.addFlashAttribute("toastMessage", "Account created successfully!");
+            redirectAttributes.addFlashAttribute("toastType", "success");
             return "redirect:/app/home";
 
-
-            
-
-
         } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("toastMessage", "An error occurred while creating the account. Please try again.");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/app/home";
         }
     }

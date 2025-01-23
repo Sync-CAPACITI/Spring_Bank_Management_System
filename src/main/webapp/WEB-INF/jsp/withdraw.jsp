@@ -22,7 +22,7 @@
      <link rel="stylesheet" href="../css/home.css">
      <link rel="stylesheet" href="../css/universal.css">
      <link rel="stylesheet" href="../css/open_account.css">
-
+     <link rel="stylesheet" href="../css/toast.css" />
      <!--clock ui-->
      <link rel="stylesheet" href="../css/clock.css">
 
@@ -30,7 +30,7 @@
      <link rel="stylesheet" href="../css/calenda.css">
 
 </head>
-<body>
+<body data-toast-message="${toastMessage}" data-toast-type="${toastType}">
 
     <c:import url="components/dashboard_components/nav.jsp"/>
 
@@ -56,20 +56,6 @@
         <!-- aside end -->
          
         <section class="middle">
-             <!-- Display Message -->
-             <c:if test="${success != null}">
-                <div class="alert alert-info text-center border border-info">
-                    <b>${success}</b>
-                </div>
-            </c:if>
-            <!-- End Of Display Message -->
-
-            <!-- Display Message -->
-            <c:if test="${error!= null}">
-                <div class="alert alert-danger text-center border border-danger">
-                    <b>${error}</b>
-                </div>
-            </c:if>
             <!-- End Of Display Message -->
             <h1> Withdraw Cash</h1>
             <c:import url="components/dashboard_components/withdraw_components.jsp"/>
@@ -87,6 +73,9 @@
         </section>
         <!-- right end -->
     </main>
+    <div id="toastBox"></div>
+
+    <script src="../js/toast.js"></script>
     <!-- Clock JS -->
     <script src="../js/clock.js"></script>
 

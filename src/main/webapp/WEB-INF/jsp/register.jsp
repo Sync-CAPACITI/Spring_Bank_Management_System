@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Register</title>
         <link rel="stylesheet" href="css/login.css" />
+        <link rel="stylesheet" href="css/toast.css" />
         <link
           href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
           rel="stylesheet"
@@ -19,35 +20,12 @@
         <link rel="icon" href="images/bank.png" type="image/png">
       </head>
  
-  <body>
+  <body data-toast-message="${toastMessage}" data-toast-type="${toastType}">
     <div class="wrapper">
         <span class="bg-animate"></span>
         <span class="bg-animate2"></span>
         <div class="form-box login reg-box">
             <h2 class="animation" style="--i:0; --j:21;">Register</h2>
-            <!-- Display Message -->
-            <c:if test="${requestScope.passwordMisMatch != null}">
-                <div class="alert alert-danger text-center border border-danger">
-                    <b>${requestScope.passwordMisMatch}</b>
-                </div>
-            </c:if>
-            <!-- End Of Display Message -->
-
-            <!-- Display Message -->
-            <c:if test="${requestScope.success != null}">
-                <div class="alert alert-success text-center border border-success">
-                    <b>${requestScope.success}</b>
-                </div>
-            </c:if>
-            <!-- End Of Display Message -->
-             
-             <!-- Display Message -->
-            <c:if test="${requestScope.error != null}">
-                <div class="alert alert-danger text-center border border-danger">
-                    <b>${requestScope.error}</b>
-                </div>
-            </c:if>
-            <!-- End Of Display Message -->
 
             <form:form action="/register"  method="POST" modelAttribute="registerUser">
 
@@ -118,7 +96,10 @@
        
  
     </div>
+    <div id="toastBox"></div>
     <script src="js/login.js"></script>
+
+    <script src="js/toast.js"></script>
 
     <script src="js/password.js"></script>
 

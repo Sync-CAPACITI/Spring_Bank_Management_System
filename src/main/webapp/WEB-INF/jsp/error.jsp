@@ -43,6 +43,7 @@
         <div class="card-body">
             <!-- Card Text -->
             <p class="card-text">
+                
             <!-- Display Message -->
             <c:if test="${requestScope.error != null}">
                 <div class="alert alert-danger text-center border border-danger">

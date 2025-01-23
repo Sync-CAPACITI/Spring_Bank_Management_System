@@ -4,17 +4,13 @@ import com.example.Spring_Bank_Management_System.Entities.Account;
 import com.example.Spring_Bank_Management_System.Entities.Transaction;
 import com.example.Spring_Bank_Management_System.Entities.User;
 import com.example.Spring_Bank_Management_System.repository.TransactionRepository;
-
 import jakarta.servlet.http.HttpSession;
-
-
 import org.springframework.stereotype.Controller;
 import com.example.Spring_Bank_Management_System.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,12 +40,14 @@ public class TransactionController {
                           RedirectAttributes redirectAttributes){
 
         //CHECK FOR EMPTY STRINGS:
-        if(accountId == null){
-            redirectAttributes.addFlashAttribute("error", "Deposit Amount or Account Depositing to Cannot Be Empty!");
+        if(accountId == null || accountId.trim().isEmpty()){
+            redirectAttributes.addFlashAttribute("toastMessage", "Account ID cannot be empty!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/app/home";
         }
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            redirectAttributes.addFlashAttribute("error", "Deposit Amount Cannot Be of 0 (Zero) Value");
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            redirectAttributes.addFlashAttribute("toastMessage", "Deposit amount must be greater than zero!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/app/home";
         }
 
@@ -57,13 +55,16 @@ public class TransactionController {
             // Fetch the logged-in user from the session
             User user = (User) session.getAttribute("user");
             if (user == null) {
-                return "User not logged in.";
+                redirectAttributes.addFlashAttribute("toastMessage", "User session is invalid. Please log in again.");
+                redirectAttributes.addFlashAttribute("toastType", "error");
+                return "redirect:/login";
             }
       
             // Fetch account and update balance
             Account account = accountRepository.findAccountById(accountId);
             if (account == null) {
-                redirectAttributes.addFlashAttribute("error", "Account is not found");
+                redirectAttributes.addFlashAttribute("toastMessage", "Account not found. Please select a valid account.");
+                redirectAttributes.addFlashAttribute("toastType", "error");
                 return "redirect:/app/home";
             }
             String account_number = accountRepository.findAccountNumber(accountId);
@@ -83,11 +84,12 @@ public class TransactionController {
             transaction.setDestinationAccountNumber(account_number);
             transactionRepository.save(transaction);
             String success_message = "Amount Deposited Successfully, New Balance:" + account.getBalance();
-            redirectAttributes.addFlashAttribute("success", success_message);
+            redirectAttributes.addFlashAttribute("toastMessage", success_message);
+            redirectAttributes.addFlashAttribute("toastType", "success");
 
         } catch (Exception e) {
-            String error =  "Error occurred during deposit: " + e.getMessage();
-            redirectAttributes.addFlashAttribute("error", error);
+            redirectAttributes.addFlashAttribute("toastMessage", "Error occurred during deposit: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("toastType", "error");
         }
         return "redirect:/app/home";
     }
@@ -100,32 +102,39 @@ public class TransactionController {
                            HttpSession session,
                            RedirectAttributes redirectAttributes){
 
-        String errorMessage = "You Have insufficient Funds to perform this Withdrawal!";
+        if (accountId == null || accountId.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("toastMessage", "Account ID cannot be empty!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            return "redirect:/app/home";
+        }
        
 
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            redirectAttributes.addFlashAttribute("error", "Amount must be greater than zero");
+        if (amount == null ||amount.compareTo(BigDecimal.ZERO) <= 0) {
+            redirectAttributes.addFlashAttribute("toastMessage", "Withdrawal amount must be greater than zero!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/app/home";
         }
 
         try {
             // Fetch account and validate balance
-
             User user = (User) session.getAttribute("user");
             if (user == null) {
-
-                return "User not logged in.";
+                redirectAttributes.addFlashAttribute("toastMessage", "User session is invalid. Please log in again.");
+                redirectAttributes.addFlashAttribute("toastType", "error");
+                return "redirect:/login";
             }
             Account account = accountRepository.findAccountById(accountId);
 
             if (account == null) {
-                redirectAttributes.addFlashAttribute("error", "Account not found");
-                return "redirect:/app/home.";
+                redirectAttributes.addFlashAttribute("toastMessage", "Account not found. Please select a valid account.");
+                redirectAttributes.addFlashAttribute("toastType", "error");
+                return "redirect:/app/home";
             }
 
             if (account.getBalance().compareTo(amount) < 0) {
-                redirectAttributes.addFlashAttribute("error", errorMessage);
-                return "redirect:/app/home.";
+                redirectAttributes.addFlashAttribute("toastMessage", "Insufficient funds for this withdrawal!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            return "redirect:/app/home";
             }
 
             // Update account balance
@@ -144,20 +153,17 @@ public class TransactionController {
             transactionRepository.save(transaction);
 
             String success =  "Withdrawal successful. New Balance: " + account.getBalance();
-            redirectAttributes.addFlashAttribute("error", success);
-            return "redirect:/app/home";
+            redirectAttributes.addFlashAttribute("toastMessage", success);
+            redirectAttributes.addFlashAttribute("toastType", "success");
+
         } catch (Exception e) {
             String error = "Error occurred during withdrawal: " + e.getMessage();
-            redirectAttributes.addFlashAttribute("error", error);
-            return "redirect:/app/home";
+            redirectAttributes.addFlashAttribute("toastMessage", error);
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            
         }
+        return "redirect:/app/home";
     }
-          
-
-        
-
-        //  SET NEW BALANCE:
-
     // End Of Withdrawal Method.
 
     // Transfer Endpoint
@@ -168,9 +174,25 @@ public class TransactionController {
                            @RequestParam("description") String description,
                            HttpSession session,
                            RedirectAttributes redirectAttributes) {
+        if (from_account == null || from_account.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("toastMessage", "Source account cannot be empty!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            return "redirect:/app/home";
+        }
+        if (to_account == null || to_account.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("toastMessage", "Destination account cannot be empty!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            return "redirect:/app/home";
+        }
 
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            redirectAttributes.addFlashAttribute("error", "Amount must be greater than zero");
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            redirectAttributes.addFlashAttribute("toastMessage", "Transfer amount must be greater than zero!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            return "redirect:/app/home";
+        }
+        if (from_account.equals(to_account)) {
+            redirectAttributes.addFlashAttribute("toastMessage", "Source and destination accounts cannot be the same!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/app/home";
         }
     
@@ -178,7 +200,9 @@ public class TransactionController {
             // Fetch the logged-in user from the session
             User user = (User) session.getAttribute("user");
             if (user == null) {
-                return "User not logged in.";
+                redirectAttributes.addFlashAttribute("toastMessage", "User session is invalid. Please log in again.");
+                redirectAttributes.addFlashAttribute("toastType", "error");
+                return "redirect:/login";
             }
     
             // Fetch accounts and perform transfer logic
@@ -187,13 +211,15 @@ public class TransactionController {
     
             if (sourceAccount == null || destinationAccount == null) {
 
-                redirectAttributes.addFlashAttribute("error", "One or both accounts not found.");
+                redirectAttributes.addFlashAttribute("toastMessage", "One or both accounts not found. Please verify the account IDs.");
+                redirectAttributes.addFlashAttribute("toastType", "error");
                 return "redirect:/app/home";
             }
     
             if (sourceAccount.getBalance().compareTo(amount) < 0) {
               
-                redirectAttributes.addFlashAttribute("error", "Amount must be greater than zero");
+                redirectAttributes.addFlashAttribute("toastMessage", "Insufficient funds in the source account!");
+                redirectAttributes.addFlashAttribute("toastType", "error");
                 return "redirect:/app/home";
             }
     
@@ -201,40 +227,50 @@ public class TransactionController {
             destinationAccount.setBalance(destinationAccount.getBalance().add(amount));
             accountRepository.save(sourceAccount);
             accountRepository.save(destinationAccount);
+
+            String sourceAccountNumber = accountRepository.findAccountNumber(from_account);
+            String destinationAccountNumber = accountRepository.findAccountNumber(to_account);
+
+            if (sourceAccountNumber == null || destinationAccountNumber == null) {
+                redirectAttributes.addFlashAttribute("toastMessage", "One or both accounts not found. Please verify the account IDs.");
+                redirectAttributes.addFlashAttribute("toastType", "error");
+                return "redirect:/app/home";
+            }
              
             // Create debit transaction
             Transaction debitTransaction = new Transaction();
             debitTransaction.setAccount(sourceAccount);
             debitTransaction.setUser(user); // Associate with logged-in user
-            debitTransaction.setAccountNumber(from_account);
+            debitTransaction.setAccountNumber(sourceAccountNumber);
             debitTransaction.setTransactionType("TRANSFER_OUT");
             debitTransaction.setAmount(amount);
             debitTransaction.setTransactionDate(LocalDateTime.now());
             debitTransaction.setDescription(description);
-            debitTransaction.setDestinationAccountNumber(to_account);
+            debitTransaction.setDestinationAccountNumber(destinationAccountNumber);
             transactionRepository.save(debitTransaction);
     
             // Create credit transaction
             Transaction creditTransaction = new Transaction();
             creditTransaction.setAccount(destinationAccount);
             creditTransaction.setUser(user); // Associate with logged-in user
-            creditTransaction.setAccountNumber(to_account);
+            creditTransaction.setAccountNumber(sourceAccountNumber);
             creditTransaction.setTransactionType("TRANSFER_IN");
             creditTransaction.setAmount(amount);
             creditTransaction.setTransactionDate(LocalDateTime.now());
             creditTransaction.setDescription(description);
-            creditTransaction.setDestinationAccountNumber(from_account);
+            creditTransaction.setDestinationAccountNumber(destinationAccountNumber);
             transactionRepository.save(creditTransaction);
     
             String success = "Transfer successful. Source Balance: " + sourceAccount.getBalance() +
                     ", Destination Balance: " + destinationAccount.getBalance();
-                    redirectAttributes.addFlashAttribute("error", success);
-                    return "redirect:/app/home";
+                    redirectAttributes.addFlashAttribute("toastMessage", success);
+                    redirectAttributes.addFlashAttribute("toastType", "success");
         } catch (Exception e) {
             String error = "Error occurred during transfer: " + e.getMessage();
-            redirectAttributes.addFlashAttribute("error", error);
-            return "redirect:/app/home";
+            redirectAttributes.addFlashAttribute("toastMessage", error);
+            redirectAttributes.addFlashAttribute("toastType", "error");
         }
+        return "redirect:/app/home";
     }
 
     @GetMapping("/transactionsList/{userId}")
@@ -261,6 +297,4 @@ public class TransactionController {
         return transactionRepository.findByUser(sessionUser);
     }
     
-
-
 }

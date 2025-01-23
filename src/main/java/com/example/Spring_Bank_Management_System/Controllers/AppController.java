@@ -1,24 +1,17 @@
 package com.example.Spring_Bank_Management_System.Controllers;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.example.Spring_Bank_Management_System.Entities.Account;
 import com.example.Spring_Bank_Management_System.Entities.Transaction;
 import com.example.Spring_Bank_Management_System.Entities.User;
-
 import com.example.Spring_Bank_Management_System.repository.AccountRepository;
 import com.example.Spring_Bank_Management_System.repository.TransactionRepository;
-
 import jakarta.servlet.http.HttpSession;
-
-
-
 
 @Controller
 @RequestMapping("/app")
@@ -29,8 +22,6 @@ public class AppController {
     
     @Autowired
     private TransactionRepository transactionRepository;
-
-
     User user;
 
     @GetMapping("/home")
@@ -41,7 +32,7 @@ public class AppController {
         user = (User)session.getAttribute("user");
 
         // Debugging: Print the user details
-    System.out.println("Logged-in user: " + user);
+        System.out.println("Logged-in user: " + user);
 
         // Get The Accounts Of The Logged In User:
         List<Account> getUserAccounts = accountRepository.findByUserId(user.getUserId());
@@ -69,25 +60,19 @@ public class AppController {
         ModelAndView getIndexPage = new ModelAndView("transfer");
         user = (User) session.getAttribute("user");  // Fetch user from session before using it
         
-
         // Get The Accounts Of The Logged In User:
 
-    List<Account> getUserAccounts = accountRepository.findByUserId(user.getUserId());
+        List<Account> getUserAccounts = accountRepository.findByUserId(user.getUserId());
 
-      // Ensure the accounts list is not empty
-    if (getUserAccounts != null && !getUserAccounts.isEmpty()) {
-        getIndexPage.addObject("getUserAccounts", getUserAccounts);
-    } else {
-        getIndexPage.addObject("getUserAccounts", new ArrayList<>()); // In case the list is empty
+        // Ensure the accounts list is not empty
+        if (getUserAccounts != null && !getUserAccounts.isEmpty()) {
+            getIndexPage.addObject("getUserAccounts", getUserAccounts);
+        } else {
+            getIndexPage.addObject("getUserAccounts", new ArrayList<>()); // In case the list is empty
+        }
+
+        return getIndexPage;
     }
-
-    return getIndexPage;
-    }
-
-    
-
-    
-    
 
     @GetMapping("/transactionsList")
     public ModelAndView getTransactions(HttpSession session){
@@ -107,8 +92,6 @@ public class AppController {
         } else {
             getIndexPage.addObject("transactions", new ArrayList<>()); // In case the list is empty
         }
-
-
         System.out.println("In The transactions List Page Controller");
         return getIndexPage;
     }

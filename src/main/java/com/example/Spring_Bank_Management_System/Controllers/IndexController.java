@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.Spring_Bank_Management_System.repository.UserRepository;
 
 @Controller
@@ -26,34 +28,28 @@ public class IndexController {
     public ModelAndView getError(){
         ModelAndView getErrorPage = new ModelAndView("error");
         getErrorPage.addObject("PageTitle", "Errors");
-        System.out.println("This when we get an error");
         return getErrorPage;
     }
 
     @GetMapping("/verify")
-    public ModelAndView getVerify(@RequestParam("token")String token, @RequestParam("code") String code){
-        // Set View:
-        ModelAndView getVerifyPage;
+    public String getVerify(@RequestParam("token")String token, @RequestParam("code") String code, RedirectAttributes redirectAttributes){
 
         // Get Token In Database:
         String dbToken = userRepository.verifyToken(token);
 
         // Check If Token Is Valid:
         if(dbToken == null){
-            getVerifyPage  = new ModelAndView("error");
-            getVerifyPage.addObject("error", "This Session Has Expired");
-            return  getVerifyPage;
+            redirectAttributes.addFlashAttribute("toastMessage", "This session has expired.");
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            return "redirect:/error";
         }
         // End Of Check If Token Is Valid.
 
         // Update and Verify Account:
         userRepository.verifyAccount(token, code);
 
-        getVerifyPage = new ModelAndView("login");
-
-        getVerifyPage.addObject("success", "Account Verified Successfully, Please proceed to Log In!");
-
-        System.out.println("In Verify Account Controller");
-        return getVerifyPage;
+        redirectAttributes.addFlashAttribute("toastMessage", "Account verified successfully! Please proceed to log in.");
+        redirectAttributes.addFlashAttribute("toastType", "success");
+        return "redirect:/login";
     }
 }
