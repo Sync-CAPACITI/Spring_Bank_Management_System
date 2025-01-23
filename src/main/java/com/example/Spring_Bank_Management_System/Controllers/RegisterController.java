@@ -51,7 +51,18 @@ public class RegisterController {
             redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/register";
         }
-    
+
+        if (!isValidSouthAfricanId(user.getIdNum())) {
+            redirectAttributes.addFlashAttribute("toastMessage", "Invalid South African ID number!");
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            return "redirect:/register";
+        }
+
+        if (!isValidPassword(user.getPassword())){
+            redirectAttributes.addFlashAttribute("toastMessage", "Password Must have:UpperCase,Special Character,Number and be 8 Characters long");
+            redirectAttributes.addFlashAttribute("toastType", "error");
+            return "redirect:/register";
+        }
         // Check for password mismatch
         if (!user.getPassword().equals(confirm_password)) {
             redirectAttributes.addFlashAttribute("toastMessage", "Passwords do not match!");
@@ -93,6 +104,22 @@ public class RegisterController {
         return "redirect:/login";
     }
     
+    private boolean isValidSouthAfricanId(String idNum) {
+        if (idNum == null || idNum.length() != 13) {
+            return false;
+        }
+        // Regex to check if it's only digits
+        return idNum.matches("\\d{13}");
+    }
+
+    private boolean isValidPassword(String password) {
+        if (password == null || password.length() < 8) {
+            return false;
+        }
+        // Check for at least one uppercase letter, one number, and one special character
+        String passwordPattern = "(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).+";
+        return password.matches(passwordPattern);
+    }
     
     
 }

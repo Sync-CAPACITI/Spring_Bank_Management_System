@@ -83,7 +83,7 @@ public class PasswordResetController {
 
         model.addAttribute("token", token);
         model.addAttribute("passwordResetForm", new PasswordResetForm());
-        return "redirect:/password_reset";
+        return "password_reset";
     }
 
     
