@@ -22,7 +22,7 @@ public class LoginController {
     public UserRepository userRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
+    public AccountRepository accountRepository;
 
     @GetMapping("/login")
     public ModelAndView getLogin(){
