@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 public class RegisterController {
 
     @Autowired
-    private UserRepository userRepository;
+    protected UserRepository userRepository;
 
     @GetMapping("/register")
     public ModelAndView getRegister(){
@@ -52,11 +52,28 @@ public class RegisterController {
             return "redirect:/register";
         }
 
-        if (!isValidSouthAfricanId(user.getIdNum())) {
-            redirectAttributes.addFlashAttribute("toastMessage", "Invalid South African ID number!");
-            redirectAttributes.addFlashAttribute("toastType", "error");
-            return "redirect:/register";
-        }
+        // if (!) {
+
+        //     // Catch any exception thrown by the setter if the ID is invalid
+            try {
+                // This will trigger the setter validation for idNum
+                
+                if( !isValidSouthAfricanId(user.getIdNum())){
+                    throw new IllegalArgumentException("Invalid South African ID number! It must be exactly 13 digits.");
+                }
+                
+                // isValidSouthAfricanId(user.getIdNum());
+            } catch (IllegalArgumentException e) {
+                // Handle the exception - return to the registration page with an error message
+                redirectAttributes.addFlashAttribute("toastMessage", e.getMessage());
+                redirectAttributes.addFlashAttribute("toastType", "error");
+                return "redirect:/register";
+            }
+        // }
+
+        
+
+
 
         if (!isValidPassword(user.getPassword())){
             redirectAttributes.addFlashAttribute("toastMessage", "Password Must have:UpperCase,Special Character,Number and be 8 Characters long");
@@ -105,11 +122,7 @@ public class RegisterController {
     }
     
     private boolean isValidSouthAfricanId(String idNum) {
-        if (idNum == null || idNum.length() != 13) {
-            return false;
-        }
-        // Regex to check if it's only digits
-        return idNum.matches("\\d{13}");
+        return idNum != null && idNum.matches("^[0-9]{13}$");
     }
 
     private boolean isValidPassword(String password) {

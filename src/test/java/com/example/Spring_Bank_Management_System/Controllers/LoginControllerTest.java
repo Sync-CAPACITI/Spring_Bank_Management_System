@@ -7,11 +7,9 @@ import com.example.Spring_Bank_Management_System.Entities.User;
 import com.example.Spring_Bank_Management_System.repository.AccountRepository;
 import com.example.Spring_Bank_Management_System.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;

@@ -34,7 +34,8 @@ public class User {
     private String email;
 
     @NotNull(message = "ID number is required to proceed")
-    @Column(name = "id_num", nullable = false, unique = true, length = 20)
+    @Size(min = 13, max=13,  message="The ID number should be 13 digits")
+    @Column(name = "id_num", nullable = false, unique = true, length = 13)
     private String idNum;
 
     @NotNull(message = "Password cannot be empty")
